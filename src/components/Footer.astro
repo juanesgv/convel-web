@@ -1,0 +1,134 @@
+---
+const cols = [
+  {
+    title: 'Compañía',
+    links: [
+      { label: 'Nosotros', href: '#nosotros' },
+      { label: 'Equipo', href: '#' },
+      { label: 'Carreras', href: '#' },
+      { label: 'Prensa', href: '#prensa' },
+    ],
+  },
+  {
+    title: 'Servicios',
+    links: [
+      { label: 'Diseño arquitectónico', href: '#' },
+      { label: 'Construcción', href: '#' },
+      { label: 'Gerencia de obra', href: '#' },
+      { label: 'Sostenibilidad', href: '#sostenibilidad' },
+    ],
+  },
+];
+---
+<footer>
+  <div class="container">
+    <div class="top">
+      <div class="brand">
+        <a class="lo" href="#" aria-label="Convel - inicio">
+          <img src="/assets/logo-convel-white.png" alt="Convel" />
+        </a>
+        <p class="tag">Diseño y construcción desde Medellín. Lo hacemos posible.</p>
+      </div>
+      {cols.map((col) => (
+        <div>
+          <h6>{col.title}</h6>
+          <ul>
+            {col.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+      <div>
+        <h6>Contacto</h6>
+        <ul>
+          <li>Cra. 43A # 1-50 · Medellín</li>
+          <li>+57 (604) 444 5500</li>
+          <li>proyectos@convel.com.co</li>
+          <li><a href="#">LinkedIn</a> · <a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bot">
+      <span>© 2026 Convel S.A.S. · Todos los derechos reservados.</span>
+      <span><span class="accent">Lo hacemos posible.</span> · Medellín, Colombia</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--convel-black);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .container {
+    padding: 64px var(--container-pad) 32px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+
+  .top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  h6 {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  ul {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  ul a {
+    transition: color 160ms var(--ease-standard);
+  }
+
+  ul a:hover { color: #fff; }
+
+  .lo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lo img { height: 28px; }
+
+  .tag {
+    font-size: 13px;
+    line-height: 1.55;
+    margin-top: 16px;
+    max-width: 36ch;
+  }
+
+  .bot {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 24px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .bot .accent { color: var(--convel-red); }
+
+  @media (max-width: 860px) {
+    .top { grid-template-columns: 1fr 1fr; }
+    .brand { grid-column: 1 / -1; }
+  }
+
+  @media (max-width: 480px) {
+    .top { grid-template-columns: 1fr; }
+  }
+</style>

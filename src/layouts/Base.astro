@@ -1,0 +1,27 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Convel · Diseño y construcción desde 1954',
+  description = 'Más de 65 años desarrollando proyectos civiles, industriales, comerciales y residenciales bajo estándares internacionales. Lo hacemos posible.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

@@ -1,0 +1,206 @@
+---
+const stats = [
+  { num: '+65', label: 'años' },
+  { num: '+400', label: 'colaboradores' },
+  { strong: 'Premio Excelencia', label: 'en Concreto' },
+  { strong: 'Bienal', label: 'Regional de Arquitectura · Antioquia' },
+];
+---
+<section class="hero">
+  <div class="inner">
+    <div class="copy">
+      <span class="eyebrow">Diseño + construcción · Medellín · 1954</span>
+      <h1>
+        Diseñamos y construimos espacios que <span class="accent">perduran.</span>
+      </h1>
+      <p>
+        Más de 65 años desarrollando proyectos civiles, industriales, comerciales y
+        residenciales bajo estándares internacionales. Lo hacemos posible.
+      </p>
+      <div class="ctas">
+        <a class="btn btn-primary btn-arrow" href="#proyectos">Ver proyectos</a>
+        <a class="btn btn-outline-light" href="#nosotros">Conoce a Convel</a>
+      </div>
+    </div>
+    <div class="image" aria-hidden="true">
+      <span class="placeholder">Fotografía · obra en Medellín</span>
+      <div class="label">
+        <span>Vegas 48 · 2024</span>
+        <span>El Poblado · Medellín</span>
+      </div>
+    </div>
+  </div>
+  <div class="ticker">
+    {stats.map((s) => (
+      <span>{s.num ? <><b>{s.num}</b> {s.label}</> : <><b>{s.strong}</b> {s.label}</>}</span>
+    ))}
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--convel-black);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 96px var(--container-pad) 64px;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 64px;
+    align-items: end;
+  }
+
+  .eyebrow {
+    color: var(--convel-red);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 3px;
+    background: var(--convel-red);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(44px, 7vw, 96px);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    color: #fff;
+    margin: 0 0 28px;
+    text-wrap: balance;
+  }
+
+  h1 .accent { color: var(--convel-red); }
+
+  p {
+    font-size: 18px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 50ch;
+    margin: 0 0 32px;
+  }
+
+  .ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font: 600 13px/1 var(--font-body);
+    padding: 13px 20px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 160ms var(--ease-standard);
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary {
+    background: var(--convel-red);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: var(--convel-red-700); }
+
+  .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+    background: transparent;
+  }
+
+  .btn-outline-light:hover {
+    background: #fff;
+    color: var(--convel-black);
+  }
+
+  .btn-arrow::after {
+    content: '→';
+    transition: transform 160ms var(--ease-standard);
+  }
+
+  .btn-arrow:hover::after { transform: translateX(4px); }
+
+  .image {
+    aspect-ratio: 4 / 5;
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.55) 100%),
+      linear-gradient(135deg, #6e635b 0%, #baada5 50%, #2b2b2b 100%);
+    position: relative;
+    border-top: 6px solid var(--convel-red);
+  }
+
+  .placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .label {
+    position: absolute;
+    bottom: 22px;
+    left: 22px;
+    right: 22px;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .ticker {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 18px var(--container-pad);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 32px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: var(--container-max);
+    margin-inline: auto;
+  }
+
+  .ticker b {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  @media (max-width: 860px) {
+    .inner {
+      grid-template-columns: 1fr;
+      padding: 64px var(--container-pad) 48px;
+      gap: 40px;
+    }
+    .image { aspect-ratio: 4 / 3; }
+  }
+</style>
