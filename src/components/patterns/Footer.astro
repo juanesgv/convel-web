@@ -1,0 +1,209 @@
+---
+import Container from '../primitives/Container.astro';
+import Icon from '../primitives/Icon.astro';
+import { footerLegal } from '../../data/navigation.ts';
+import { company } from '../../data/company.ts';
+
+const year = new Date().getFullYear();
+
+const navColumns = [
+  {
+    title: 'Compañía',
+    items: [
+      { label: 'Quiénes somos', href: '/quienes-somos' },
+      { label: 'Experiencia', href: '/experiencia' },
+      { label: 'Talento', href: '/talento' },
+      { label: 'Sostenibilidad', href: '/sostenibilidad' },
+      { label: 'Proveedores', href: '/proveedores' },
+      { label: 'Segmentos', href: '/segmentos' },
+    ],
+  },
+  {
+    title: 'Servicios',
+    items: [
+      { label: 'Diseños', href: '/servicios/disenos' },
+      { label: 'Optimización', href: '/servicios/optimizacion' },
+      { label: 'Estructuración', href: '/servicios/estructuracion' },
+      { label: 'Construcción', href: '/servicios/construccion' },
+    ],
+  },
+];
+
+const phoneNbsp = company.contact.phone.replace(/ /g, ' ');
+---
+<footer class="cv-footer bg-ink-900 text-white" data-cv="footer">
+  <Container>
+    {/* Editorial signature — tagline display como firma arquitectónica */}
+    <div class="cv-footer-signature pt-20 md:pt-28 pb-12 md:pb-16">
+      <div class="flex items-center gap-3">
+        <span aria-hidden="true" class="block h-[2px] w-7 bg-red"></span>
+        <span
+          class="text-[11px] font-semibold uppercase text-white/70"
+          style="letter-spacing: var(--ls-eyebrow);"
+        >
+          convel · desde {company.foundedYear}
+        </span>
+      </div>
+      <p
+        class="cv-footer-tagline mt-8 font-display font-extrabold text-white"
+        style="font-size: clamp(2.5rem, 8vw, 6rem); line-height: 0.95; letter-spacing: var(--ls-tight); text-wrap: balance;"
+      >
+        {company.tagline}
+      </p>
+    </div>
+
+    {/* Grid asimétrico 5/7 editorial */}
+    <div class="border-t border-white/12 pt-12 md:pt-16 pb-12 grid grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-12">
+      {/* Brand block — 5 cols */}
+      <div class="col-span-2 lg:col-span-5 flex flex-col">
+        <a href="/" class="inline-flex items-center" aria-label="convel · ir al inicio">
+          <img src="/brand/logo-white.png" alt="" width="148" height="32" class="h-8 w-auto" />
+        </a>
+        <p class="mt-6 text-[15px] leading-[1.6] text-white/72 max-w-[36ch]">
+          Diseñamos y construimos espacios de alto impacto desde {company.foundedYear}. Más de {company.yearsExperience} años de trayectoria desde {company.city}.
+        </p>
+
+        <div class="mt-10">
+          <span class="cv-footer-eyebrow">Oficina</span>
+          <address class="cv-footer-address mt-3">
+            {company.address.street}<br />
+            {company.address.detail}<br />
+            {company.address.neighborhood} · {company.address.city}
+          </address>
+        </div>
+
+        <div class="mt-10 flex items-center gap-3">
+          <a
+            href={company.social.linkedin}
+            class="cv-footer-social"
+            aria-label="convel en LinkedIn (abre en nueva pestaña)"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Icon name="linkedin" size={16} />
+          </a>
+          <a
+            href={company.social.instagram}
+            class="cv-footer-social"
+            aria-label="convel en Instagram (abre en nueva pestaña)"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Icon name="instagram" size={16} />
+          </a>
+        </div>
+      </div>
+
+      {/* Nav columns — single <nav> wrapping ambas listas, evita 3 landmarks */}
+      <nav class="contents lg:contents" aria-label="Enlaces del pie de página">
+        {navColumns.map((col, idx) => (
+          <div class:list={['col-span-1', idx === 0 ? 'lg:col-span-3' : 'lg:col-span-2']}>
+            <h2 class="cv-footer-eyebrow">{col.title}</h2>
+            <ul class="mt-5 flex flex-col gap-3">
+              {col.items.map((it) => (
+                <li>
+                  <a href={it.href} class="cv-footer-link">{it.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+
+      {/* Contact column — 2 cols (5 + 3 + 2 + 2 = 12) */}
+      <div class="col-span-2 lg:col-span-2">
+        <h2 class="cv-footer-eyebrow">Contacto</h2>
+        <ul class="mt-5 flex flex-col gap-3 text-[14px] text-white/82">
+          <li>
+            <a
+              href={`tel:${company.contact.phoneE164}`}
+              class="cv-footer-link inline-flex items-center gap-2 whitespace-nowrap"
+            >
+              <Icon name="phone" size={14} class="text-white/50" />
+              {phoneNbsp}
+            </a>
+          </li>
+          <li>
+            <a
+              href={`mailto:${company.contact.email}`}
+              class="cv-footer-link inline-flex items-center gap-2 break-all"
+            >
+              <Icon name="mail" size={14} class="text-white/50 shrink-0" />
+              <span>{company.contact.email}</span>
+            </a>
+          </li>
+          <li class="inline-flex items-start gap-2 text-white/70">
+            <Icon name="clock" size={14} class="text-white/50 mt-[3px]" />
+            <span>{company.contact.hours}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Bottom rule — copyright + legal */}
+    <div class="border-t border-white/12 py-8 flex flex-col-reverse gap-6 md:flex-row md:items-center md:justify-between">
+      <p class="text-[12px] text-white/65 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <span>© {year} {company.legalName}</span>
+        {footerLegal.map((l) => (
+          <>
+            <span aria-hidden="true" class="hidden md:inline text-white/30">·</span>
+            <a href={l.href} class="hover:text-white transition-colors duration-[var(--dur-fast)] ease-[var(--ease-standard)]">
+              {l.label}
+            </a>
+          </>
+        ))}
+      </p>
+      <div class="cv-footer-locale text-[12px] font-semibold uppercase text-white/65">
+        {company.city}, {company.country}
+      </div>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .cv-footer-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--convel-white);
+    letter-spacing: var(--ls-eyebrow);
+  }
+  .cv-footer-address {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .cv-footer-link {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.72);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-footer-link:hover { color: var(--convel-white); }
+  .cv-footer-social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.85);
+    transition:
+      border-color var(--dur-base) var(--ease-standard),
+      color var(--dur-base) var(--ease-standard);
+  }
+  .cv-footer-social:hover {
+    border-color: var(--convel-red);
+    color: var(--convel-red);
+  }
+  .cv-footer-locale {
+    letter-spacing: var(--ls-eyebrow);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cv-footer-link,
+    .cv-footer-social {
+      transition: none !important;
+    }
+  }
+</style>

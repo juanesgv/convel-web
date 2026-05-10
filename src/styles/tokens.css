@@ -1,33 +1,28 @@
 /* ===========================================================================
-   CONVEL — Colors & Typography
-   Source: brand color sheets (CONVEL FULL COLOR.pdf, CONVEL ACENTO COLOR.pdf,
-   BASICOS CONVEL.pdf). Manual de marca PDF was referenced but not received,
-   so semantic tokens below are inferred from the brand palette + wordmark.
+   Convel — Design tokens
+   Fuente: design system canónico generado con Claude Design a partir del
+   manual de marca oficial. Adaptado para este proyecto:
+     · Tipografía display + body: Montserrat Variable (decisión de proyecto,
+       sustituye Manrope sugerido en el DS).
+     · Mono: DM Mono.
+     · Fuentes self-hosted vía @fontsource (importadas desde el layout).
+   No editar duplicando: este archivo es la única fuente de verdad. Tailwind
+   v4 mapea estos valores vía @theme en theme.css.
    =========================================================================== */
 
-/* ---- Webfonts -------------------------------------------------------------
-   Manrope is used as a stand-in for the Convel wordmark face (geometric,
-   humanist sans, even strokes, closed-aperture e). Flag to user: please send
-   the actual brand font (Manual de marca PDF needed) to swap.
-   --------------------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
-
 :root {
-  /* ===== Brand palette (verbatim from the official color sheets) ===== */
+  /* ===== Paleta de marca (verbatim de las cartas de color oficiales) ===== */
   --convel-red:        #E54530;  /* Pantone P 45-7 C  · RGB 229,69,48  */
   --convel-green:      #41542A;  /* Verde · sostenibilidad · RGB 65,84,42 */
-  --convel-black:      #000000;  /* Pantone Black                       */
+  --convel-black:      #000000;
   --convel-white:      #FFFFFF;
   --convel-mist:       #D4DFE7;  /* Pantone P 117-9 C · RGB 212,223,231 */
   --convel-stone:      #BAADA5;  /* Pantone P 169-6 C · RGB 186,173,165 */
 
-  /* ===== Tints / shades (extrapolated for UI use) =====
-     The brand sheet lists 5 colors only. The values below are tonal
-     extensions for interfaces and digital states. They are NOT in the
-     manual; they are derived in oklch from the source hex.            */
+  /* ===== Escalas (extrapoladas para UI, no oficiales) ===== */
   --convel-red-700:    #B8331F;
   --convel-red-600:    #CF3A26;
-  --convel-red-500:    #E54530;  /* = --convel-red */
+  --convel-red-500:    #E54530;
   --convel-red-400:    #ED6B59;
   --convel-red-300:    #F4998C;
   --convel-red-200:    #F9C5BD;
@@ -35,19 +30,19 @@
   --convel-red-50:     #FEF3F0;
 
   --convel-mist-200:   #BFCED9;
-  --convel-mist-100:   #D4DFE7;  /* = --convel-mist */
+  --convel-mist-100:   #D4DFE7;
   --convel-mist-50:    #ECF1F5;
   --convel-mist-25:    #F6F8FA;
 
   --convel-stone-700:  #6E635B;
   --convel-stone-600:  #8C7F76;
   --convel-stone-500:  #A89B91;
-  --convel-stone-400:  #BAADA5;  /* = --convel-stone */
+  --convel-stone-400:  #BAADA5;
   --convel-stone-300:  #CCC2BB;
   --convel-stone-200:  #DDD6D1;
   --convel-stone-100:  #EDE9E5;
 
-  --convel-ink-900:    #0B0B0B;  /* near-black, slightly warmer than pure */
+  --convel-ink-900:    #0B0B0B;
   --convel-ink-800:    #1A1A1A;
   --convel-ink-700:    #2B2B2B;
   --convel-ink-600:    #4A4A4A;
@@ -55,7 +50,7 @@
   --convel-ink-400:    #8E8E8E;
   --convel-ink-300:    #B5B5B5;
 
-  /* ===== Semantic tokens ===== */
+  /* ===== Tokens semánticos ===== */
   --bg:                var(--convel-white);
   --bg-soft:           var(--convel-mist-25);
   --bg-muted:          var(--convel-mist-50);
@@ -80,19 +75,16 @@
   --border-strong:     var(--convel-ink-800);
   --border-accent:     var(--convel-red);
 
-  /* Status — inferred (not in brand sheet).
-     Red is reserved for brand & destructive both; use sparingly together. */
   --success:           var(--convel-green);
   --warning:           #C68A1B;
   --danger:            var(--convel-red-600);
   --info:              #2A6FA8;
 
-  /* ===== Typography ===== */
-  --font-display:      "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body:         "Manrope", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* ===== Tipografía ===== */
+  --font-display:      "Montserrat Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body:         "Montserrat Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono:         "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  /* Weight scale */
   --fw-light:          300;
   --fw-regular:        400;
   --fw-medium:         500;
@@ -100,34 +92,32 @@
   --fw-bold:           700;
   --fw-extrabold:      800;
 
-  /* Type scale (modular, base 16, ratio ~1.25) */
-  --fs-12:  0.75rem;     /* 12px - micro */
-  --fs-14:  0.875rem;    /* 14px - caption */
-  --fs-16:  1rem;        /* 16px - body */
-  --fs-18:  1.125rem;    /* 18px - body large */
-  --fs-20:  1.25rem;     /* 20px - lead */
-  --fs-24:  1.5rem;      /* 24px - h5 */
-  --fs-30:  1.875rem;    /* 30px - h4 */
-  --fs-36:  2.25rem;     /* 36px - h3 */
-  --fs-48:  3rem;        /* 48px - h2 */
-  --fs-60:  3.75rem;     /* 60px - h1 */
-  --fs-80:  5rem;        /* 80px - display */
-  --fs-120: 7.5rem;      /* 120px - hero display */
+  /* Escala modular base 16, ratio ~1.25 */
+  --fs-12:  0.75rem;
+  --fs-14:  0.875rem;
+  --fs-16:  1rem;
+  --fs-18:  1.125rem;
+  --fs-20:  1.25rem;
+  --fs-24:  1.5rem;
+  --fs-30:  1.875rem;
+  --fs-36:  2.25rem;
+  --fs-48:  3rem;
+  --fs-60:  3.75rem;
+  --fs-80:  5rem;
+  --fs-120: 7.5rem;
 
-  /* Line height */
   --lh-tight:    1.04;
   --lh-snug:     1.18;
   --lh-normal:   1.45;
   --lh-relaxed:  1.6;
 
-  /* Letter spacing */
-  --ls-tight:    -0.02em;
-  --ls-snug:     -0.01em;
+  --ls-tight:    -0.035em;   /* hero display — apretado para densidad editorial con Montserrat */
+  --ls-snug:     -0.02em;
   --ls-normal:   0;
   --ls-wide:     0.04em;
-  --ls-eyebrow:  0.16em;   /* uppercase eyebrows */
+  --ls-eyebrow:  0.16em;
 
-  /* ===== Spacing (4-px base) ===== */
+  /* ===== Spacing (base 4px) ===== */
   --sp-1:  4px;
   --sp-2:  8px;
   --sp-3:  12px;
@@ -142,14 +132,14 @@
   --sp-24: 96px;
   --sp-32: 128px;
 
-  /* ===== Radius ===== */
-  --r-0:   0px;     /* default — Convel skews architectural / hard-edged */
-  --r-1:   2px;
-  --r-2:   4px;
-  --r-3:   8px;
+  /* ===== Radius (hard-edged por defecto) ===== */
+  --r-0:    0px;
+  --r-1:    2px;
+  --r-2:    4px;
+  --r-3:    8px;
   --r-pill: 999px;
 
-  /* ===== Shadows (restrained, architectural) ===== */
+  /* ===== Shadows (architectural, restrained) ===== */
   --shadow-1: 0 1px 2px rgba(11,11,11,0.06);
   --shadow-2: 0 2px 8px rgba(11,11,11,0.08);
   --shadow-3: 0 12px 32px -12px rgba(11,11,11,0.18);
@@ -162,131 +152,9 @@
   --dur-fast:      120ms;
   --dur-base:      220ms;
   --dur-slow:      420ms;
+  --dur-xslow:     640ms;
 
   /* ===== Layout ===== */
   --container-max: 1280px;
   --container-pad: clamp(20px, 4vw, 64px);
 }
-
-/* ===========================================================================
-   Element-level base styles (semantic CSS vars in use)
-   =========================================================================== */
-html { font-family: var(--font-body); color: var(--fg); background: var(--bg); }
-
-body {
-  font-family: var(--font-body);
-  font-size: var(--fs-16);
-  line-height: var(--lh-normal);
-  color: var(--fg);
-  background: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* ----- Display & headings ----- */
-.display-1, .display {
-  font-family: var(--font-display);
-  font-size: clamp(var(--fs-60), 8vw, var(--fs-120));
-  font-weight: var(--fw-extrabold);
-  line-height: var(--lh-tight);
-  letter-spacing: var(--ls-tight);
-  color: var(--fg);
-}
-
-h1, .h1 {
-  font-family: var(--font-display);
-  font-size: clamp(var(--fs-48), 5.5vw, var(--fs-80));
-  font-weight: var(--fw-bold);
-  line-height: var(--lh-tight);
-  letter-spacing: var(--ls-tight);
-  margin: 0 0 var(--sp-6);
-}
-
-h2, .h2 {
-  font-family: var(--font-display);
-  font-size: clamp(var(--fs-36), 4vw, var(--fs-60));
-  font-weight: var(--fw-bold);
-  line-height: var(--lh-snug);
-  letter-spacing: var(--ls-snug);
-  margin: 0 0 var(--sp-4);
-}
-
-h3, .h3 {
-  font-family: var(--font-display);
-  font-size: var(--fs-30);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-snug);
-  margin: 0 0 var(--sp-3);
-}
-
-h4, .h4 {
-  font-family: var(--font-display);
-  font-size: var(--fs-24);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-snug);
-  margin: 0 0 var(--sp-3);
-}
-
-h5, .h5 {
-  font-size: var(--fs-20);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-snug);
-  margin: 0 0 var(--sp-2);
-}
-
-h6, .h6 {
-  font-size: var(--fs-16);
-  font-weight: var(--fw-semibold);
-  line-height: var(--lh-snug);
-  margin: 0 0 var(--sp-2);
-}
-
-.eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--fs-12);
-  font-weight: var(--fw-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--ls-eyebrow);
-  color: var(--convel-red);
-}
-
-p, .p {
-  font-size: var(--fs-16);
-  line-height: var(--lh-relaxed);
-  color: var(--fg);
-  margin: 0 0 var(--sp-4);
-  text-wrap: pretty;
-  max-width: 68ch;
-}
-
-.lead {
-  font-size: var(--fs-20);
-  line-height: var(--lh-relaxed);
-  color: var(--fg-muted);
-  font-weight: var(--fw-regular);
-  max-width: 60ch;
-}
-
-small, .small { font-size: var(--fs-14); color: var(--fg-muted); }
-.caption { font-size: var(--fs-12); color: var(--fg-subtle); letter-spacing: var(--ls-wide); }
-
-a {
-  color: var(--fg);
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  transition: color var(--dur-fast) var(--ease-standard);
-}
-a:hover { color: var(--convel-red); }
-
-code, kbd, samp, pre {
-  font-family: var(--font-mono);
-  font-size: 0.92em;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid var(--border);
-  margin: var(--sp-8) 0;
-}
-
-::selection { background: var(--convel-red); color: var(--convel-white); }

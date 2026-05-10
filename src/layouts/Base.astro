@@ -1,27 +1,83 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+import '@fontsource-variable/montserrat/index.css';
+import '@fontsource/dm-mono/400.css';
+import '@fontsource/dm-mono/500.css';
+import '../styles/theme.css';
+
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
+  noindex?: boolean;
 }
 
 const {
   title = 'Convel · Diseño y construcción desde 1954',
-  description = 'Más de 65 años desarrollando proyectos civiles, industriales, comerciales y residenciales bajo estándares internacionales. Lo hacemos posible.',
+  description = 'Convel S.A.S. — más de 65 años desarrollando proyectos civiles, industriales, comerciales y residenciales bajo estándares internacionales. Lo hacemos posible.',
+  ogImage = '/og-default.jpg',
+  noindex = false,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="Convel" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).toString()} />
+
+    {/* Twitter */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    {/* Theme */}
+    <meta name="theme-color" content="#0B0B0B" />
+    <meta name="color-scheme" content="light" />
+
+    {/* Favicons */}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <ClientRouter fallback="swap" />
   </head>
   <body>
+    <a href="#main" class="cv-skip-link">Saltar al contenido</a>
     <slot />
+
+    <style is:global>
+      .cv-skip-link {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
+        padding: 10px 16px;
+        background: var(--convel-ink-900);
+        color: var(--convel-white);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        transform: translateY(calc(-100% - 16px));
+        transition: transform var(--dur-base) var(--ease-standard);
+      }
+      .cv-skip-link:focus-visible {
+        transform: translateY(0);
+      }
+    </style>
   </body>
 </html>
-
-<style is:global>
-  @import '../styles/global.css';
-</style>

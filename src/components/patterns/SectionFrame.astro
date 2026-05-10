@@ -1,0 +1,50 @@
+---
+import Container from '../primitives/Container.astro';
+
+interface Props {
+  as?: 'section' | 'div' | 'article' | 'aside';
+  tone?: 'default' | 'soft' | 'muted' | 'inverse' | 'stone' | 'green';
+  spacing?: 'sm' | 'md' | 'lg' | 'xl';
+  containerSize?: 'editorial' | 'wide' | 'narrow';
+  bleed?: boolean;
+  id?: string;
+  class?: string;
+}
+
+const {
+  as = 'section',
+  tone = 'default',
+  spacing = 'lg',
+  containerSize = 'editorial',
+  bleed = false,
+  id,
+  class: className = '',
+} = Astro.props;
+
+const toneClass = {
+  default: 'bg-bg text-fg',
+  soft: 'bg-mist-25 text-fg',
+  muted: 'bg-mist-50 text-fg',
+  inverse: 'bg-ink-900 text-white',
+  stone: 'bg-stone-100 text-fg',
+  green: 'bg-green text-white',
+}[tone];
+
+const spacingClass = {
+  sm: 'py-12 md:py-16',
+  md: 'py-16 md:py-20',
+  lg: 'py-20 md:py-24',
+  xl: 'py-24 md:py-32',
+}[spacing];
+
+const Tag = as;
+---
+<Tag id={id} class:list={[toneClass, spacingClass, className]}>
+  {bleed ? (
+    <slot />
+  ) : (
+    <Container size={containerSize}>
+      <slot />
+    </Container>
+  )}
+</Tag>

@@ -1,0 +1,230 @@
+/* ===========================================================================
+   Convel — Tailwind v4 theme
+   Mapea los tokens de tokens.css al sistema de Tailwind v4 vía @theme.
+   Single source of truth: tokens.css. Aquí solo se referencian.
+   =========================================================================== */
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme {
+  /* ---- Reset utilidades que no usamos del default Tailwind ---- */
+  --color-*: initial;
+  --font-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --ease-*: initial;
+  --tracking-*: initial;
+  --leading-*: initial;
+  --text-*: initial;
+  --spacing-*: initial;
+  --breakpoint-*: initial;
+
+  /* ---- Breakpoints (mobile-first real) ---- */
+  --breakpoint-sm:  640px;
+  --breakpoint-md:  768px;
+  --breakpoint-lg:  1024px;
+  --breakpoint-xl:  1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ---- Colores de marca ---- */
+  --color-red:        var(--convel-red);
+  --color-red-50:     var(--convel-red-50);
+  --color-red-100:    var(--convel-red-100);
+  --color-red-200:    var(--convel-red-200);
+  --color-red-300:    var(--convel-red-300);
+  --color-red-400:    var(--convel-red-400);
+  --color-red-500:    var(--convel-red-500);
+  --color-red-600:    var(--convel-red-600);
+  --color-red-700:    var(--convel-red-700);
+
+  --color-green:      var(--convel-green);
+
+  --color-mist:       var(--convel-mist);
+  --color-mist-25:    var(--convel-mist-25);
+  --color-mist-50:    var(--convel-mist-50);
+  --color-mist-100:   var(--convel-mist-100);
+  --color-mist-200:   var(--convel-mist-200);
+
+  --color-stone:      var(--convel-stone);
+  --color-stone-100:  var(--convel-stone-100);
+  --color-stone-200:  var(--convel-stone-200);
+  --color-stone-300:  var(--convel-stone-300);
+  --color-stone-400:  var(--convel-stone-400);
+  --color-stone-500:  var(--convel-stone-500);
+  --color-stone-600:  var(--convel-stone-600);
+  --color-stone-700:  var(--convel-stone-700);
+
+  --color-ink-300:    var(--convel-ink-300);
+  --color-ink-400:    var(--convel-ink-400);
+  --color-ink-500:    var(--convel-ink-500);
+  --color-ink-600:    var(--convel-ink-600);
+  --color-ink-700:    var(--convel-ink-700);
+  --color-ink-800:    var(--convel-ink-800);
+  --color-ink-900:    var(--convel-ink-900);
+
+  --color-black:      var(--convel-black);
+  --color-white:      var(--convel-white);
+
+  /* Colores semánticos (uso preferido en componentes) */
+  --color-bg:           var(--bg);
+  --color-bg-soft:      var(--bg-soft);
+  --color-bg-muted:     var(--bg-muted);
+  --color-bg-inverse:   var(--bg-inverse);
+  --color-surface:      var(--surface);
+  --color-fg:           var(--fg);
+  --color-fg-muted:     var(--fg-muted);
+  --color-fg-subtle:    var(--fg-subtle);
+  --color-fg-faint:     var(--fg-faint);
+  --color-fg-on-inverse: var(--fg-on-inverse);
+  --color-border:       var(--border);
+  --color-border-soft:  var(--border-soft);
+  --color-border-strong: var(--border-strong);
+
+  /* ---- Tipografía ---- */
+  --font-display: var(--font-display);
+  --font-sans:    var(--font-body);
+  --font-mono:    var(--font-mono);
+
+  --text-12:  var(--fs-12);
+  --text-14:  var(--fs-14);
+  --text-16:  var(--fs-16);
+  --text-18:  var(--fs-18);
+  --text-20:  var(--fs-20);
+  --text-24:  var(--fs-24);
+  --text-30:  var(--fs-30);
+  --text-36:  var(--fs-36);
+  --text-48:  var(--fs-48);
+  --text-60:  var(--fs-60);
+  --text-80:  var(--fs-80);
+  --text-120: var(--fs-120);
+
+  --leading-tight:   var(--lh-tight);
+  --leading-snug:    var(--lh-snug);
+  --leading-normal:  var(--lh-normal);
+  --leading-relaxed: var(--lh-relaxed);
+
+  --tracking-tight:   var(--ls-tight);
+  --tracking-snug:    var(--ls-snug);
+  --tracking-normal:  var(--ls-normal);
+  --tracking-wide:    var(--ls-wide);
+  --tracking-eyebrow: var(--ls-eyebrow);
+
+  /* ---- Spacing ---- */
+  --spacing-1:  var(--sp-1);
+  --spacing-2:  var(--sp-2);
+  --spacing-3:  var(--sp-3);
+  --spacing-4:  var(--sp-4);
+  --spacing-5:  var(--sp-5);
+  --spacing-6:  var(--sp-6);
+  --spacing-8:  var(--sp-8);
+  --spacing-10: var(--sp-10);
+  --spacing-12: var(--sp-12);
+  --spacing-16: var(--sp-16);
+  --spacing-20: var(--sp-20);
+  --spacing-24: var(--sp-24);
+  --spacing-32: var(--sp-32);
+
+  /* ---- Radius ---- */
+  --radius-0:    var(--r-0);
+  --radius-1:    var(--r-1);
+  --radius-2:    var(--r-2);
+  --radius-3:    var(--r-3);
+  --radius-pill: var(--r-pill);
+
+  /* ---- Shadows ---- */
+  --shadow-1: var(--shadow-1);
+  --shadow-2: var(--shadow-2);
+  --shadow-3: var(--shadow-3);
+  --shadow-4: var(--shadow-4);
+
+  /* ---- Motion ---- */
+  --ease-standard: var(--ease-standard);
+  --ease-out:      var(--ease-out);
+  --ease-in:       var(--ease-in);
+
+  --duration-fast:  120ms;
+  --duration-base:  220ms;
+  --duration-slow:  420ms;
+  --duration-xslow: 640ms;
+}
+
+/* ===========================================================================
+   Base — elementos HTML
+   =========================================================================== */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  html {
+    font-family: var(--font-body);
+    color: var(--fg);
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--fs-16);
+    line-height: var(--lh-normal);
+    color: var(--fg);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img, svg, video { display: block; max-width: 100%; }
+
+  a { color: inherit; text-decoration: none; }
+
+  button {
+    font-family: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  ::selection { background: var(--convel-red); color: var(--convel-white); }
+
+  :focus-visible {
+    outline: 2px solid var(--convel-red);
+    outline-offset: 2px;
+  }
+
+  /* Respeto a prefers-reduced-motion en todo el sitio */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ===========================================================================
+   Utilities semánticas (no son utilities Tailwind — son helpers de marca)
+   =========================================================================== */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--convel-red);
+}
+
+.lead {
+  font-size: var(--fs-20);
+  line-height: var(--lh-relaxed);
+  color: var(--fg-muted);
+  font-weight: var(--fw-regular);
+  max-width: 60ch;
+}
+
+.container-editorial {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}

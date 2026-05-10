@@ -1,0 +1,86 @@
+---
+interface Props {
+  as?: 'div' | 'section' | 'article' | 'span' | 'li' | 'header' | 'footer';
+  delay?: number;
+  distance?: number;
+  duration?: 'base' | 'slow' | 'xslow';
+  threshold?: number;
+  once?: boolean;
+  class?: string;
+}
+
+const {
+  as = 'div',
+  delay = 0,
+  distance = 12,
+  duration = 'slow',
+  threshold = 0.12,
+  once = true,
+  class: className = '',
+} = Astro.props;
+
+const Tag = as;
+
+const durationVar = {
+  base: 'var(--dur-base)',
+  slow: 'var(--dur-slow)',
+  xslow: 'var(--dur-xslow)',
+}[duration];
+---
+<Tag
+  class:list={['cv-reveal', className]}
+  data-threshold={threshold}
+  data-once={once ? 'true' : 'false'}
+  style={`--reveal-delay:${delay}ms; --reveal-distance:${distance}px; --reveal-duration:${durationVar};`}
+>
+  <slot />
+</Tag>
+
+<style>
+  .cv-reveal {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance, 12px));
+    transition:
+      opacity var(--reveal-duration, var(--dur-slow)) var(--ease-standard) var(--reveal-delay, 0ms),
+      transform var(--reveal-duration, var(--dur-slow)) var(--ease-standard) var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .cv-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cv-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const setupReveals = () => {
+    const els = document.querySelectorAll<HTMLElement>('.cv-reveal:not([data-revealed])');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const el = entry.target as HTMLElement;
+          el.classList.add('is-visible');
+          el.setAttribute('data-revealed', '');
+          if (el.dataset.once !== 'false') io.unobserve(el);
+        }
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+    );
+    els.forEach((el) => io.observe(el));
+  };
+
+  setupReveals();
+  document.addEventListener('astro:page-load', setupReveals);
+</script>

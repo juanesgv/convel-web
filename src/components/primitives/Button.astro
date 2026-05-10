@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'outline' | 'outline-inverse' | 'ghost';
+  size?: 'sm' | 'md';
+  arrow?: boolean;
+  class?: string;
+  ariaLabel?: string;
+  disabled?: boolean;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  arrow = false,
+  class: className = '',
+  ariaLabel,
+  disabled = false,
+} = Astro.props;
+
+const base = [
+  'group relative inline-flex items-center justify-center gap-3',
+  'font-medium tracking-[0.02em] whitespace-nowrap',
+  'transition-[background-color,color,border-color,transform] duration-[var(--dur-base)] ease-[var(--ease-standard)]',
+  'active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red',
+  'disabled:opacity-50 disabled:pointer-events-none',
+];
+
+const sizes = {
+  sm: 'text-[12px] px-4 py-[9px]',
+  md: 'text-[13px] px-5 py-[11px]',
+};
+
+const variants = {
+  primary: 'bg-red text-white hover:bg-[var(--convel-red-700)]',
+  outline:
+    'border border-ink-900 text-ink-900 hover:bg-ink-900 hover:text-white',
+  'outline-inverse':
+    'border border-white/40 text-white hover:bg-white hover:text-ink-900',
+  ghost: 'text-fg hover:text-red',
+};
+
+const Tag = href ? 'a' : 'button';
+---
+<Tag
+  href={href}
+  type={!href ? type : undefined}
+  aria-label={ariaLabel}
+  disabled={!href ? disabled : undefined}
+  class:list={[base, sizes[size], variants[variant], className]}
+>
+  <slot />
+  {arrow && (
+    <Icon
+      name="arrow-right"
+      size={16}
+      class="transition-transform duration-[var(--dur-base)] ease-[var(--ease-standard)] group-hover:translate-x-1"
+    />
+  )}
+</Tag>

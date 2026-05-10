@@ -1,0 +1,19 @@
+---
+interface Props {
+  as?: 'div' | 'section' | 'header' | 'footer' | 'main' | 'article' | 'nav';
+  size?: 'editorial' | 'wide' | 'narrow';
+  class?: string;
+}
+
+const { as = 'div', size = 'editorial', class: className = '' } = Astro.props;
+const Tag = as;
+
+const sizeClass = {
+  editorial: 'max-w-[1280px]',
+  wide: 'max-w-[1440px]',
+  narrow: 'max-w-[920px]',
+}[size];
+---
+<Tag class:list={['mx-auto px-[clamp(20px,4vw,64px)] w-full', sizeClass, className]}>
+  <slot />
+</Tag>

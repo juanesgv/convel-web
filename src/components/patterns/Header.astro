@@ -1,0 +1,691 @@
+---
+import Container from '../primitives/Container.astro';
+import Button from '../primitives/Button.astro';
+import Icon from '../primitives/Icon.astro';
+import { primaryNav, primaryCta, type NavItem } from '../../data/navigation.ts';
+
+interface Props {
+  /** Inicialmente transparente (para superponer sobre hero oscuro). Vira a sólido en scroll. */
+  transparent?: boolean;
+  /** Si la página tiene fondo oscuro encima del fold, usar variante invertida hasta scroll. */
+  inverseAtTop?: boolean;
+  currentPath?: string;
+}
+
+const { transparent = false, inverseAtTop = false, currentPath = Astro.url.pathname } = Astro.props;
+
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+---
+<header
+  class:list={[
+    'cv-header sticky top-0 z-50 w-full',
+    transparent ? 'cv-header--transparent' : 'cv-header--solid',
+    inverseAtTop && 'cv-header--inverse-at-top',
+  ]}
+>
+  <Container as="div" class="flex items-center gap-8 py-5 md:py-6">
+    {/* Wordmark */}
+    <a
+      href="/"
+      class="cv-wordmark inline-flex items-center shrink-0"
+      aria-label="convel · ir al inicio"
+    >
+      <img
+        src="/brand/logo-black.png"
+        alt=""
+        width="120"
+        height="28"
+        class="h-7 w-auto cv-wordmark-dark"
+        fetchpriority="high"
+      />
+      <img
+        src="/brand/logo-white.png"
+        alt=""
+        width="120"
+        height="28"
+        class="h-7 w-auto cv-wordmark-light hidden"
+        fetchpriority="high"
+      />
+    </a>
+
+    {/* Desktop nav */}
+    <nav
+      class="cv-nav hidden lg:flex items-center gap-7 xl:gap-9 ml-2"
+      aria-label="Navegación principal"
+    >
+      {primaryNav.map((item: NavItem) => {
+        const hasChildren = !!item.children?.length;
+        const active = isActive(item.href);
+        return (
+          <div class="cv-nav-item relative" data-has-menu={hasChildren ? 'true' : 'false'}>
+            <a
+              href={item.href}
+              class:list={[
+                'cv-nav-link relative inline-flex items-center gap-[6px]',
+                'text-[14px] font-medium',
+                'py-2',
+                active && 'is-active',
+              ]}
+              aria-current={active ? 'page' : undefined}
+            >
+              <span class="cv-nav-label">{item.label}</span>
+              {hasChildren && (
+                <Icon name="chevron-down" size={16} class="cv-nav-chevron opacity-60" />
+              )}
+            </a>
+
+            {hasChildren && (
+              <div
+                class="cv-megamenu"
+                role="group"
+                aria-label={`Categorías de ${item.label}`}
+                hidden
+              >
+                <div class="cv-megamenu-inner">
+                  <div class="cv-megamenu-grid">
+                    <div class="cv-megamenu-context">
+                      <span class="cv-megamenu-eyebrow">{item.label}</span>
+                      {item.description && (
+                        <p class="cv-megamenu-desc">{item.description}</p>
+                      )}
+                      <a href={item.href} class="cv-megamenu-overview group">
+                        Ver {item.label.toLowerCase()}
+                        <Icon
+                          name="arrow-right"
+                          size={14}
+                          class="cv-megamenu-overview-arrow"
+                        />
+                      </a>
+                    </div>
+                    <ul class="cv-megamenu-list">
+                      {item.children!.map((child, i) => (
+                        <li class="cv-megamenu-item">
+                          <a href={child.href} class="cv-megamenu-link group">
+                            <span class="cv-megamenu-num">
+                              {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <span class="cv-megamenu-title">{child.label}</span>
+                            <Icon
+                              name="arrow-up-right"
+                              size={16}
+                              class="cv-megamenu-arrow"
+                            />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </nav>
+
+    {/* CTA right */}
+    <div class="ml-auto flex items-center gap-3">
+      <Button href={primaryCta.href} variant="outline" size="md" arrow class="hidden lg:inline-flex">
+        {primaryCta.label}
+      </Button>
+
+      {/* Mobile trigger */}
+      <button
+        type="button"
+        class="cv-mobile-trigger lg:hidden inline-flex items-center justify-center w-11 h-11 -mr-2"
+        aria-label="Menú"
+        aria-controls="cv-mobile-menu"
+        aria-expanded="false"
+        data-open-menu
+      >
+        <span class="cv-burger" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+  </Container>
+
+  {/* Bottom hairline (visible solo cuando header es sólido / con scroll) */}
+  <div class="cv-header-hairline" aria-hidden="true"></div>
+</header>
+
+{/* Mobile menu — native <dialog> con focus trap nativo */}
+<dialog id="cv-mobile-menu" class="cv-mobile-menu" aria-label="Menú principal">
+  <div class="cv-mobile-menu-inner">
+    <div class="cv-mobile-menu-top">
+      <a href="/" class="inline-flex items-center" aria-label="convel · ir al inicio" data-mobile-link>
+        <img src="/brand/logo-black.png" alt="" width="120" height="28" class="h-7 w-auto" />
+      </a>
+      <button
+        type="button"
+        class="inline-flex items-center justify-center w-11 h-11 -mr-2"
+        aria-label="Cerrar menú"
+        data-close-menu
+      >
+        <Icon name="x" size={24} />
+      </button>
+    </div>
+
+    <nav class="cv-mobile-menu-nav" aria-label="Navegación principal">
+      <ul class="flex flex-col">
+        {primaryNav.map((item: NavItem, i: number) => (
+          <li class="border-b border-border-soft last:border-b-0">
+            <a
+              href={item.href}
+              class="cv-mobile-link group"
+              data-mobile-link
+            >
+              <span class="cv-mobile-num">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span class="cv-mobile-title">
+                {item.label}
+              </span>
+            </a>
+            {item.children && (
+              <ul class="pb-4 -mt-2 pl-10 flex flex-col gap-2">
+                {item.children.map((c) => (
+                  <li>
+                    <a
+                      href={c.href}
+                      class="cv-mobile-sublink"
+                      data-mobile-link
+                    >
+                      {c.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="cv-mobile-menu-bottom">
+      <Button href={primaryCta.href} variant="primary" arrow class="w-full justify-center">
+        {primaryCta.label}
+      </Button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  /* ===== Header — base solid (sin backdrop-filter por regla del DS) ===== */
+  .cv-header {
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--fg);
+    transition:
+      background-color var(--dur-base) var(--ease-standard),
+      color var(--dur-base) var(--ease-standard);
+  }
+  .cv-header-hairline {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1px;
+    background: var(--border-soft);
+    opacity: 1;
+    transition: opacity var(--dur-base) var(--ease-standard);
+  }
+
+  /* Transparente al tope (vira a sólido con scroll) */
+  .cv-header--transparent:not([data-scrolled='true']) {
+    background: transparent;
+  }
+  .cv-header--transparent:not([data-scrolled='true']) .cv-header-hairline {
+    opacity: 0;
+  }
+
+  /* Inverse-at-top: texto blanco mientras está transparente */
+  .cv-header--inverse-at-top:not([data-scrolled='true']) {
+    color: var(--fg-on-inverse);
+  }
+  .cv-header--inverse-at-top:not([data-scrolled='true']) .cv-wordmark-dark { display: none; }
+  .cv-header--inverse-at-top:not([data-scrolled='true']) .cv-wordmark-light { display: block; }
+
+  /* Wordmark */
+  .cv-wordmark {
+    transition: opacity var(--dur-fast) var(--ease-standard);
+  }
+  .cv-wordmark:hover { opacity: 0.7; }
+
+  /* Nav links — underline scaleX en hover */
+  .cv-nav-link {
+    color: inherit;
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition:
+      transform var(--dur-base) var(--ease-standard),
+      background-color var(--dur-fast);
+  }
+  .cv-nav-link:hover::after,
+  .cv-nav-item[data-open='true'] .cv-nav-link::after {
+    transform: scaleX(1);
+    background: var(--convel-red);
+  }
+  .cv-nav-link:hover,
+  .cv-nav-item[data-open='true'] .cv-nav-link {
+    color: var(--convel-red);
+  }
+  .cv-nav-link.is-active { color: var(--convel-red); }
+  .cv-nav-link.is-active::after {
+    transform: scaleX(1);
+    background: var(--convel-red);
+  }
+  .cv-nav-chevron {
+    transition: transform var(--dur-base) var(--ease-standard);
+  }
+  .cv-nav-item[data-open='true'] .cv-nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* ===== Megamenu ===== */
+  .cv-megamenu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    min-width: 560px;
+    max-width: 720px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-3);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition:
+      opacity var(--dur-base) var(--ease-standard),
+      transform var(--dur-base) var(--ease-standard);
+    z-index: 10;
+  }
+  .cv-megamenu[data-open='true'] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .cv-megamenu-inner { padding: 28px 32px; }
+  .cv-megamenu-grid {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 1.6fr;
+    gap: 40px;
+  }
+  .cv-megamenu-context {
+    padding-right: 24px;
+    border-right: 1px solid var(--border-soft);
+    display: flex;
+    flex-direction: column;
+  }
+  .cv-megamenu-eyebrow {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--convel-red-700);  /* AA-compliant on white */
+    letter-spacing: var(--ls-eyebrow);
+  }
+  .cv-megamenu-desc {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--fg-muted);
+    max-width: 28ch;
+  }
+  .cv-megamenu-overview {
+    margin-top: auto;
+    padding-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-megamenu-overview:hover { color: var(--convel-red); }
+  .cv-megamenu-overview-arrow {
+    transition: transform var(--dur-base) var(--ease-standard);
+  }
+  .cv-megamenu-overview:hover .cv-megamenu-overview-arrow {
+    transform: translateX(3px);
+  }
+  .cv-megamenu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .cv-megamenu-link {
+    display: grid;
+    grid-template-columns: 28px 1fr 16px;
+    align-items: baseline;
+    gap: 14px;
+    padding: 12px 8px;
+    color: var(--fg);
+    transition:
+      background-color var(--dur-fast) var(--ease-standard),
+      color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-megamenu-link:hover { background: var(--bg-soft); }
+  .cv-megamenu-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--convel-red-700);  /* AA-compliant */
+    letter-spacing: var(--ls-wide);
+  }
+  .cv-megamenu-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .cv-megamenu-arrow {
+    color: var(--fg-faint);
+    transition:
+      color var(--dur-base) var(--ease-standard),
+      transform var(--dur-base) var(--ease-standard);
+  }
+  .cv-megamenu-link:hover .cv-megamenu-arrow {
+    color: var(--convel-red-700);
+    transform: translate(2px, -2px);
+  }
+
+  /* ===== Burger ===== */
+  .cv-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 22px;
+  }
+  .cv-burger span {
+    display: block;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform var(--dur-base) var(--ease-standard);
+  }
+
+  /* ===== Mobile menu — native <dialog> ===== */
+  .cv-mobile-menu {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    background: var(--bg);
+    color: var(--fg);
+    overscroll-behavior: contain;
+    touch-action: manipulation;
+  }
+  .cv-mobile-menu::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .cv-mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .cv-mobile-menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px clamp(20px, 4vw, 64px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .cv-mobile-menu-nav {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 32px clamp(20px, 4vw, 64px);
+  }
+  .cv-mobile-menu-bottom {
+    padding: 24px clamp(20px, 4vw, 64px);
+    border-top: 1px solid var(--border-soft);
+  }
+  .cv-mobile-link {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 20px 0;
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-mobile-link:hover .cv-mobile-title { color: var(--convel-red); }
+  .cv-mobile-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--convel-red-700);
+    flex-shrink: 0;
+    padding-top: 4px;
+    letter-spacing: var(--ls-wide);
+  }
+  .cv-mobile-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 6vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: var(--ls-snug);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-mobile-sublink {
+    display: block;
+    padding: 4px 0;
+    font-size: 14px;
+    color: var(--fg-muted);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-mobile-sublink:hover { color: var(--convel-red); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-header,
+    .cv-nav-link,
+    .cv-nav-link::after,
+    .cv-nav-chevron,
+    .cv-megamenu,
+    .cv-megamenu-arrow,
+    .cv-megamenu-overview-arrow,
+    .cv-megamenu-link,
+    .cv-wordmark,
+    .cv-mobile-link,
+    .cv-mobile-title,
+    .cv-mobile-sublink {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  type ItemEl = HTMLElement;
+
+  const HOVER_OPEN_DELAY = 60;
+  const HOVER_CLOSE_DELAY = 200;
+
+  function initHeader() {
+    const header = document.querySelector<HTMLElement>('.cv-header');
+    if (!header) return;
+
+    // ---- Scroll state ----
+    const onScroll = () => {
+      header.dataset.scrolled = window.scrollY > 8 ? 'true' : 'false';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ---- Megamenu (desktop) ----
+    const items = header.querySelectorAll<ItemEl>('.cv-nav-item[data-has-menu="true"]');
+    let activeItem: ItemEl | null = null;
+    let closeTimer: number | undefined;
+    let openTimer: number | undefined;
+
+    const close = (item: ItemEl) => {
+      const menu = item.querySelector<HTMLElement>('.cv-megamenu');
+      if (!menu) return;
+      item.dataset.open = 'false';
+      menu.dataset.open = 'false';
+      menu.setAttribute('hidden', '');
+      if (activeItem === item) activeItem = null;
+    };
+
+    const open = (item: ItemEl) => {
+      if (activeItem && activeItem !== item) close(activeItem);
+      const menu = item.querySelector<HTMLElement>('.cv-megamenu');
+      if (!menu) return;
+      menu.removeAttribute('hidden');
+      requestAnimationFrame(() => {
+        item.dataset.open = 'true';
+        menu.dataset.open = 'true';
+      });
+      activeItem = item;
+    };
+
+    items.forEach((item) => {
+      const trigger = item.querySelector<HTMLElement>('.cv-nav-link');
+      if (!trigger) return;
+
+      item.addEventListener('mouseenter', () => {
+        window.clearTimeout(closeTimer);
+        openTimer = window.setTimeout(() => open(item), HOVER_OPEN_DELAY);
+      });
+      item.addEventListener('mouseleave', () => {
+        window.clearTimeout(openTimer);
+        closeTimer = window.setTimeout(() => close(item), HOVER_CLOSE_DELAY);
+      });
+
+      // Focus dentro del item abre el menú; foco fuera lo cierra.
+      item.addEventListener('focusin', () => {
+        window.clearTimeout(closeTimer);
+        open(item);
+      });
+      item.addEventListener('focusout', (e) => {
+        const next = e.relatedTarget as Node | null;
+        if (next && item.contains(next)) return;
+        closeTimer = window.setTimeout(() => close(item), HOVER_CLOSE_DELAY);
+      });
+
+      // Keyboard: ArrowDown abre+enfoca primer item; Escape cierra.
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          open(item);
+          requestAnimationFrame(() => {
+            item.querySelector<HTMLElement>('.cv-megamenu-link, .cv-megamenu-overview')?.focus();
+          });
+        }
+        if (e.key === 'Escape' && item.dataset.open === 'true') {
+          close(item);
+        }
+      });
+
+      const menu = item.querySelector<HTMLElement>('.cv-megamenu');
+      menu?.addEventListener('keydown', (e) => {
+        const focusables = Array.from(menu.querySelectorAll<HTMLElement>('a, button'));
+        if (!focusables.length) return;
+        const idx = focusables.indexOf(document.activeElement as HTMLElement);
+
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          close(item);
+          trigger.focus();
+        }
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          focusables[Math.min(idx + 1, focusables.length - 1)]?.focus();
+        }
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (idx <= 0) trigger.focus();
+          else focusables[idx - 1]?.focus();
+        }
+        if (e.key === 'Home') {
+          e.preventDefault();
+          focusables[0]?.focus();
+        }
+        if (e.key === 'End') {
+          e.preventDefault();
+          focusables[focusables.length - 1]?.focus();
+        }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!activeItem) return;
+      if (!activeItem.contains(e.target as Node)) close(activeItem);
+    });
+
+    // ---- Mobile menu (native dialog → focus trap nativo + Escape nativo) ----
+    const dialog = document.getElementById('cv-mobile-menu') as HTMLDialogElement | null;
+    const opener = header.querySelector<HTMLButtonElement>('[data-open-menu]');
+    const closer = dialog?.querySelector<HTMLButtonElement>('[data-close-menu]');
+
+    let savedScrollY = 0;
+    const lockScroll = () => {
+      savedScrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${savedScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    };
+    const unlockScroll = () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, savedScrollY);
+    };
+
+    const openMobile = () => {
+      if (!dialog || !opener) return;
+      lockScroll();
+      dialog.showModal();
+      opener.setAttribute('aria-expanded', 'true');
+    };
+    const closeMobile = () => {
+      if (!dialog || !opener) return;
+      dialog.close();
+      opener.setAttribute('aria-expanded', 'false');
+      unlockScroll();
+      opener.focus();
+    };
+
+    opener?.addEventListener('click', openMobile);
+    closer?.addEventListener('click', closeMobile);
+    dialog?.querySelectorAll<HTMLAnchorElement>('[data-mobile-link]').forEach((a) =>
+      a.addEventListener('click', () => {
+        // close on link tap (dialog navigates)
+        if (dialog.open) {
+          dialog.close();
+          opener?.setAttribute('aria-expanded', 'false');
+          unlockScroll();
+        }
+      }),
+    );
+    // Escape natively closes <dialog>; we only need to update state.
+    dialog?.addEventListener('close', () => {
+      opener?.setAttribute('aria-expanded', 'false');
+      unlockScroll();
+    });
+    // Click backdrop closes (native dialog click on ::backdrop area)
+    dialog?.addEventListener('click', (e) => {
+      if (e.target === dialog) closeMobile();
+    });
+  }
+
+  initHeader();
+  document.addEventListener('astro:page-load', initHeader);
+</script>
