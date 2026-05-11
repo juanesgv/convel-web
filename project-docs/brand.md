@@ -2,7 +2,7 @@
 
 ## Brand Context
 
-Convel S.A.S. es una empresa colombiana de diseño y construcción con más de 65 años de experiencia en proyectos de infraestructura, arquitectura, interiorismo y construcción de alto impacto.
+Convel S.A.S. es una empresa colombiana de diseño y construcción con más de 72 años de experiencia en proyectos de infraestructura, arquitectura, interiorismo y construcción de alto impacto.
 
 La nueva experiencia digital debe transmitir:
 
