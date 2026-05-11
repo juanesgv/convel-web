@@ -4,7 +4,9 @@ export const company = {
   tagline: 'Lo hacemos posible.',
   ethos: 'Realizamos sueños.',
   yearsExperience: 72,
-  teamSize: 400,
+  projectsDelivered: 500,
+  teamSize: 413,
+  departmentsInColombia: 5,
   city: 'Medellín',
   country: 'Colombia',
 

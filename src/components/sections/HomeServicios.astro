@@ -1,0 +1,248 @@
+---
+import SectionFrame from '../patterns/SectionFrame.astro';
+import Eyebrow from '../primitives/Eyebrow.astro';
+import Reveal from '../motion/Reveal.astro';
+import Icon from '../primitives/Icon.astro';
+
+const servicios = [
+  {
+    num: '01',
+    title: 'Diseños',
+    href: '/servicios/disenos',
+    description:
+      'Concepción arquitectónica y diseño técnico desde la idea hasta la documentación final.',
+  },
+  {
+    num: '02',
+    title: 'Optimización',
+    href: '/servicios/optimizacion',
+    description:
+      'Análisis financiero, técnico y espacial para maximizar el valor del proyecto.',
+  },
+  {
+    num: '03',
+    title: 'Estructuración',
+    href: '/servicios/estructuracion',
+    description:
+      'Coordinación de presupuestos, proveedores y cronogramas con trazabilidad operativa.',
+  },
+  {
+    num: '04',
+    title: 'Construcción',
+    href: '/servicios/construccion',
+    description:
+      'Ejecución integral de obra bajo estándares internacionales y control en sitio.',
+  },
+];
+---
+<SectionFrame as="section" tone="soft" spacing="xl" id="servicios">
+  {/* Cabecera de sección */}
+  <div class="cv-servicios-head">
+    <Reveal>
+      <Eyebrow bar>Servicios</Eyebrow>
+    </Reveal>
+    <Reveal delay={120} duration="xslow">
+      <h2 class="cv-servicios-title">
+        Una sola continuidad operativa.
+      </h2>
+    </Reveal>
+  </div>
+
+  {/* Hairline divider — corte arquitectónico */}
+  <Reveal delay={200}>
+    <div class="cv-servicios-rule" aria-hidden="true"></div>
+  </Reveal>
+
+  {/* Grid 4 capacidades */}
+  <ul class="cv-servicios-grid" role="list">
+    {servicios.map((s, i) => (
+      <Reveal as="li" delay={240 + i * 80} class="cv-servicios-item">
+        <a href={s.href} class="cv-servicios-link group">
+          <span class="cv-servicios-num">{s.num}</span>
+
+          <h3 class="cv-servicios-name">{s.title}</h3>
+
+          <p class="cv-servicios-desc">{s.description}</p>
+
+          <span class="cv-servicios-cta" aria-hidden="true">
+            <span class="cv-servicios-cta-label">Conozca</span>
+            <Icon name="arrow-right" size={16} class="cv-servicios-cta-arrow" />
+          </span>
+        </a>
+      </Reveal>
+    ))}
+  </ul>
+</SectionFrame>
+
+<style>
+  /* ===========================================================================
+     Servicios — Continuidad operativa
+     Section title arriba, hairline divider, grid 4-col con vertical rules.
+     =========================================================================== */
+
+  .cv-servicios-head {
+    max-width: 56ch;
+  }
+
+  .cv-servicios-title {
+    margin: 0;
+    margin-top: clamp(20px, 3vh, 32px);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 4.6vw, 4rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+    text-wrap: balance;
+  }
+
+  .cv-servicios-rule {
+    margin-top: clamp(48px, 8vh, 96px);
+    margin-bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--border);
+  }
+
+  /* Grid */
+  .cv-servicios-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media (min-width: 640px) {
+    .cv-servicios-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1024px) {
+    .cv-servicios-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .cv-servicios-item {
+    display: flex;
+    flex-direction: column;
+    /* Hairlines arquitectónicos entre celdas */
+    border-bottom: 1px solid var(--border-soft);
+  }
+  /* En desktop: vertical hairline a la derecha excepto la última */
+  @media (min-width: 1024px) {
+    .cv-servicios-item {
+      border-bottom: 0;
+      border-right: 1px solid var(--border-soft);
+    }
+    .cv-servicios-item:last-child {
+      border-right: 0;
+    }
+  }
+  /* En tablet: hairlines combinados */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .cv-servicios-item:nth-child(odd) {
+      border-right: 1px solid var(--border-soft);
+    }
+    .cv-servicios-item:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+  }
+  /* En mobile: última sin border-bottom */
+  @media (max-width: 639px) {
+    .cv-servicios-item:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  .cv-servicios-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: clamp(32px, 5vh, 56px) clamp(20px, 3vw, 32px);
+    color: var(--fg);
+    transition:
+      background-color var(--dur-base) var(--ease-standard);
+  }
+  .cv-servicios-link:hover {
+    background: var(--bg);
+  }
+  @media (min-width: 1024px) {
+    /* Sin padding lateral en bordes externos del grid para que el contenido alinee con el container */
+    .cv-servicios-item:first-child .cv-servicios-link {
+      padding-left: 0;
+    }
+    .cv-servicios-item:last-child .cv-servicios-link {
+      padding-right: 0;
+    }
+  }
+
+  .cv-servicios-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: var(--ls-wide);
+    color: var(--convel-red-700); /* AA-compliant para texto pequeño sobre claro */
+  }
+
+  .cv-servicios-name {
+    margin: 0;
+    margin-top: clamp(24px, 3.5vh, 36px);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-servicios-link:hover .cv-servicios-name {
+    color: var(--convel-red-700);
+  }
+
+  .cv-servicios-desc {
+    margin: 0;
+    margin-top: 16px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--fg-muted);
+    max-width: 32ch;
+    text-wrap: pretty;
+  }
+
+  .cv-servicios-cta {
+    margin-top: auto;
+    padding-top: clamp(28px, 4vh, 40px);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+    color: var(--fg-faint);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-servicios-link:hover .cv-servicios-cta {
+    color: var(--fg);
+  }
+  .cv-servicios-cta-arrow {
+    transition: transform var(--dur-base) var(--ease-standard);
+  }
+  .cv-servicios-link:hover .cv-servicios-cta-arrow {
+    transform: translateX(4px);
+    color: var(--convel-red);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-servicios-name,
+    .cv-servicios-cta,
+    .cv-servicios-cta-arrow,
+    .cv-servicios-link {
+      transition: none !important;
+    }
+  }
+</style>

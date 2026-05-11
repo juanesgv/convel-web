@@ -1,0 +1,188 @@
+---
+import SectionFrame from '../patterns/SectionFrame.astro';
+import Eyebrow from '../primitives/Eyebrow.astro';
+import Reveal from '../motion/Reveal.astro';
+import { company } from '../../data/company.ts';
+
+type Stat = {
+  prefix: '+';
+  value: number;
+  label: string;
+};
+
+const stats: Stat[] = [
+  { prefix: '+', value: company.yearsExperience,       label: 'Años de experiencia' },
+  { prefix: '+', value: company.projectsDelivered,     label: 'Proyectos entregados' },
+  { prefix: '+', value: company.teamSize,              label: 'Colaboradores directos' },
+  { prefix: '+', value: company.departmentsInColombia, label: 'Departamentos en Colombia' },
+];
+---
+<SectionFrame
+  as="section"
+  tone="inverse"
+  spacing="md"
+  id="trayectoria"
+>
+  {/* Cabecera de sección — contenida */}
+  <div class="cv-stats-head">
+    <Reveal>
+      <Eyebrow bar tone="red">Trayectoria</Eyebrow>
+    </Reveal>
+    <Reveal delay={120} duration="xslow">
+      <h2 class="cv-stats-title">Una promesa medible.</h2>
+    </Reveal>
+  </div>
+
+  {/* Eje rojo estructural — único acento cromático */}
+  <Reveal delay={200}>
+    <div class="cv-stats-rule" aria-hidden="true"></div>
+  </Reveal>
+
+  {/* Franja institucional — 4×1 estricta en desktop */}
+  <dl class="cv-stats-strip">
+    {stats.map((stat, i) => (
+      <Reveal as="div" delay={280 + i * 70} class="cv-stats-item">
+        <dt class="cv-stats-num" aria-label={`${stat.prefix}${stat.value} ${stat.label}`}>
+          <span class="cv-stats-prefix" aria-hidden="true">{stat.prefix}</span>
+          <span class="cv-stats-value">{stat.value}</span>
+        </dt>
+        <dd class="cv-stats-label">{stat.label}</dd>
+      </Reveal>
+    ))}
+  </dl>
+</SectionFrame>
+
+<style>
+  /* ===========================================================================
+     Stats — Banda institucional contenida
+     Cifra protagonista pero refinada · label presente · ratio ~2.5×
+     =========================================================================== */
+
+  /* ----- Cabecera ----- */
+  .cv-stats-head {
+    max-width: 56ch;
+  }
+  .cv-stats-title {
+    margin: 0;
+    margin-top: clamp(16px, 2.5vh, 24px);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--convel-white);
+    text-wrap: balance;
+  }
+
+  /* Eje rojo horizontal — único acento cromático estructural */
+  .cv-stats-rule {
+    margin-top: clamp(32px, 5vh, 48px);
+    height: 1px;
+    width: 100%;
+    background: var(--convel-red);
+    opacity: 0.85;
+  }
+
+  /* ----- Franja 4×1 ----- */
+  .cv-stats-strip {
+    margin: 0;
+    padding: 0;
+    margin-top: clamp(40px, 6vh, 64px);
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: clamp(32px, 5vh, 48px);
+    column-gap: clamp(32px, 4vw, 64px);
+  }
+  @media (min-width: 640px) {
+    .cv-stats-strip {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1024px) {
+    .cv-stats-strip {
+      grid-template-columns: repeat(4, 1fr);
+      row-gap: 0;
+    }
+  }
+
+  .cv-stats-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Dividers verticales sutiles entre items — desktop */
+  @media (min-width: 1024px) {
+    .cv-stats-item:not(:first-child)::before {
+      content: '';
+      position: absolute;
+      left: calc(-1 * clamp(16px, 2vw, 32px));
+      top: 6px;
+      bottom: 4px;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+  }
+  /* Tablet (2 col) — dividers internos en pares */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .cv-stats-item:nth-child(2)::before,
+    .cv-stats-item:nth-child(4)::before {
+      content: '';
+      position: absolute;
+      left: calc(-1 * clamp(16px, 2vw, 32px));
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  /* ----- Cifra (protagonismo refinado) ----- */
+  .cv-stats-num {
+    margin: 0;
+    display: inline-flex;
+    align-items: flex-start;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--convel-white);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  /* "+" como marcador mono editorial, no como dígito */
+  .cv-stats-prefix {
+    font-family: var(--font-mono);
+    font-size: 0.42em;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    margin-right: 0.14em;
+    transform: translateY(0.32em);
+    display: inline-block;
+  }
+  .cv-stats-value {
+    display: inline-block;
+  }
+
+  /* ----- Label (más presente) ----- */
+  .cv-stats-label {
+    margin: 0;
+    margin-top: clamp(6px, 1vh, 10px);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.45;
+    max-width: 22ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-stats-rule,
+    .cv-stats-num {
+      transition: none !important;
+    }
+  }
+</style>
