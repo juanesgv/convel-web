@@ -26,7 +26,7 @@ const isActive = (href: string) => {
     inverseAtTop && 'cv-header--inverse-at-top',
   ]}
 >
-  <Container as="div" class="flex items-center gap-8 py-5 md:py-6">
+  <Container as="div" class="flex items-center gap-10 lg:gap-12 py-4 md:py-5 min-h-[60px]">
     {/* Wordmark */}
     <a
       href="/"
@@ -38,7 +38,7 @@ const isActive = (href: string) => {
         alt=""
         width="120"
         height="28"
-        class="h-7 w-auto cv-wordmark-dark"
+        class="h-[42px] w-auto cv-wordmark-dark"
         fetchpriority="high"
       />
       <img
@@ -46,14 +46,14 @@ const isActive = (href: string) => {
         alt=""
         width="120"
         height="28"
-        class="h-7 w-auto cv-wordmark-light hidden"
+        class="h-[18px] w-auto cv-wordmark-light hidden"
         fetchpriority="high"
       />
     </a>
 
     {/* Desktop nav */}
     <nav
-      class="cv-nav hidden lg:flex items-center gap-7 xl:gap-9 ml-2"
+      class="cv-nav hidden lg:flex items-center gap-6 xl:gap-8"
       aria-label="Navegación principal"
     >
       {primaryNav.map((item: NavItem) => {
@@ -65,7 +65,8 @@ const isActive = (href: string) => {
               href={item.href}
               class:list={[
                 'cv-nav-link relative inline-flex items-center gap-[6px]',
-                'text-[14px] font-medium',
+                'text-[13px]',
+                active ? 'font-medium' : 'font-normal',
                 'py-2',
                 active && 'is-active',
               ]}
@@ -73,7 +74,7 @@ const isActive = (href: string) => {
             >
               <span class="cv-nav-label">{item.label}</span>
               {hasChildren && (
-                <Icon name="chevron-down" size={16} class="cv-nav-chevron opacity-60" />
+                <Icon name="chevron-down" size={16} class="cv-nav-chevron opacity-40" />
               )}
             </a>
 
@@ -95,7 +96,7 @@ const isActive = (href: string) => {
                         Ver {item.label.toLowerCase()}
                         <Icon
                           name="arrow-right"
-                          size={14}
+                          size={20}
                           class="cv-megamenu-overview-arrow"
                         />
                       </a>
@@ -281,10 +282,11 @@ const isActive = (href: string) => {
   .cv-nav-item[data-open='true'] .cv-nav-link {
     color: var(--convel-red);
   }
-  .cv-nav-link.is-active { color: var(--convel-red); }
+  /* Activo: peso medium + underline en fg — el rojo queda reservado a hover */
+  .cv-nav-link.is-active { color: var(--fg); }
   .cv-nav-link.is-active::after {
     transform: scaleX(1);
-    background: var(--convel-red);
+    background: currentColor;
   }
   .cv-nav-chevron {
     transition: transform var(--dur-base) var(--ease-standard);
