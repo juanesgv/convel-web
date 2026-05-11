@@ -1,0 +1,239 @@
+---
+import Eyebrow from '../primitives/Eyebrow.astro';
+import Button from '../primitives/Button.astro';
+import Reveal from '../motion/Reveal.astro';
+import { company } from '../../data/company.ts';
+---
+<section class="cv-hero" aria-labelledby="cv-hero-headline">
+  <div class="cv-hero-grid">
+    {/* Editorial column — col 1-7 */}
+    <div class="cv-hero-text">
+      <div class="cv-hero-text-inner">
+        <Reveal>
+          <Eyebrow bar>
+            Diseño + construcción · {company.city} · {company.foundedYear}
+          </Eyebrow>
+        </Reveal>
+
+        <Reveal delay={120} duration="xslow">
+          <h1 id="cv-hero-headline" class="cv-hero-headline">
+            Diseñamos y construimos lo permanente.
+          </h1>
+        </Reveal>
+
+        <Reveal delay={240}>
+          <p class="cv-hero-lead">
+            {company.yearsExperience} años desarrollando proyectos civiles, industriales, comerciales y residenciales bajo estándares internacionales.
+          </p>
+        </Reveal>
+
+        <Reveal delay={360}>
+          <div class="cv-hero-cta-row">
+            <Button href="/quienes-somos" variant="outline" arrow>
+              Conózcanos
+            </Button>
+            <span class="cv-hero-signature" aria-hidden="true">
+              <span class="cv-hero-signature-dot"></span>
+              {company.tagline}
+            </span>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+
+    {/* Image column — col 8-12, sangrada al borde del viewport en lg+ */}
+    <Reveal as="div" delay={80} duration="xslow" class="cv-hero-media-wrap">
+      <div class="cv-hero-media">
+        <div class="cv-hero-media-bar" aria-hidden="true"></div>
+        <div
+          class="cv-hero-media-placeholder"
+          role="img"
+          aria-label="Imagen referencial — fotografía arquitectónica pendiente"
+        ></div>
+        <figcaption class="cv-hero-media-caption">
+          <span aria-hidden="true" class="cv-hero-media-caption-rule"></span>
+          <span>Imagen referencial · fotografía arquitectónica pendiente</span>
+        </figcaption>
+      </div>
+    </Reveal>
+  </div>
+</section>
+
+<style>
+  /* ===========================================================================
+     Hero — El Atrio
+     Diptych asimétrico 7fr/5fr. Imagen sangrada al borde del viewport en lg+.
+     =========================================================================== */
+  .cv-hero {
+    width: 100%;
+    background: var(--bg);
+    /* sin padding-block extra — los hijos manejan ritmo vertical */
+  }
+
+  .cv-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  @media (min-width: 1024px) {
+    .cv-hero-grid {
+      grid-template-columns: 7fr 5fr;
+      min-height: clamp(560px, 78vh, 820px);
+    }
+  }
+
+  /* ----- Columna editorial ----- */
+  .cv-hero-text {
+    padding-inline: clamp(20px, 4vw, 64px);
+    padding-block: clamp(72px, 12vh, 160px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cv-hero-text-inner {
+    max-width: 56ch;
+  }
+
+  .cv-hero-headline {
+    margin: 0;
+    margin-top: clamp(28px, 4vh, 48px);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.5rem, 6.4vw, 5.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    color: var(--fg);
+  }
+
+  .cv-hero-lead {
+    margin: 0;
+    margin-top: clamp(24px, 3.5vh, 40px);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: clamp(1rem, 1.35vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--fg-muted);
+    max-width: 48ch;
+    text-wrap: pretty;
+  }
+
+  .cv-hero-cta-row {
+    margin-top: clamp(36px, 5vh, 56px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 28px;
+  }
+  .cv-hero-signature {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+    color: var(--fg-faint);
+    font-weight: 500;
+    /* aria-hidden porque el tagline visualmente acompaña al CTA pero ya está en otros lugares del sitio */
+  }
+  .cv-hero-signature-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--convel-red);
+    flex-shrink: 0;
+  }
+
+  /* ----- Columna imagen ----- */
+  .cv-hero-media-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  @media (max-width: 1023px) {
+    /* Mobile/tablet: imagen apila debajo, formato portrait architectural */
+    .cv-hero-media-wrap {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  .cv-hero-media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    /* placeholder gradient: stone cálido → mist frío → ink profundo */
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(11, 11, 11, 0.45) 100%),
+      linear-gradient(135deg, #8C7F76 0%, #C0B5AD 30%, #6E7884 65%, #1A1A1A 100%);
+  }
+
+  /* Barra roja superior — único momento del "detalle arquitectónico" rojo en este hero */
+  .cv-hero-media-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--convel-red);
+    z-index: 2;
+  }
+
+  /* Pinstripe vertical sutil — sugiere formwork de concreto o mullions de fachada */
+  .cv-hero-media-placeholder {
+    position: absolute;
+    inset: 4px 0 0 0;
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 79px,
+      rgba(255, 255, 255, 0.035) 79px,
+      rgba(255, 255, 255, 0.035) 80px
+    );
+    mix-blend-mode: overlay;
+  }
+
+  /* Caption mono editorial */
+  .cv-hero-media-caption {
+    position: absolute;
+    left: clamp(20px, 4vw, 32px);
+    bottom: clamp(20px, 3vh, 32px);
+    right: clamp(20px, 4vw, 32px);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: rgba(255, 255, 255, 0.82);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .cv-hero-media-caption-rule {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+  }
+
+  /* ----- Bleed-to-viewport-right en lg+ -----
+     El section ya es 100vw. La columna imagen ocupa 5fr del grid. Sin más
+     intervención, su borde derecho es el borde derecho del section = borde
+     derecho del viewport. Funciona automáticamente. */
+
+  /* Detalles tipográficos: el periodo final del headline puede merecer atención */
+  .cv-hero-headline::selection {
+    background: var(--convel-red);
+    color: var(--convel-white);
+  }
+
+  /* prefers-reduced-motion: el Reveal wrapper ya lo respeta;
+     aquí también desactivamos cualquier transición decorativa */
+  @media (prefers-reduced-motion: reduce) {
+    .cv-hero-media-placeholder,
+    .cv-hero-media {
+      transition: none !important;
+    }
+  }
+</style>

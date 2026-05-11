@@ -2,11 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/patterns/Header.astro';
 import Footer from '../components/patterns/Footer.astro';
-import SectionFrame from '../components/patterns/SectionFrame.astro';
-import Button from '../components/primitives/Button.astro';
-import Eyebrow from '../components/primitives/Eyebrow.astro';
-import Reveal from '../components/motion/Reveal.astro';
-import { company } from '../data/company.ts';
+import HomeHero from '../components/sections/HomeHero.astro';
 ---
 <Base
   title="Convel · Diseño y construcción desde 1954"
@@ -15,131 +11,8 @@ import { company } from '../data/company.ts';
 >
   <Header />
 
-  <main>
-    {/* Intro */}
-    <SectionFrame spacing="xl">
-      <div class="grid lg:grid-cols-12 gap-y-12 gap-x-8 items-end">
-        <div class="lg:col-span-8">
-          <Reveal>
-            <Eyebrow bar>Fase 2 · Patterns</Eyebrow>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1
-              class="mt-6 font-display font-extrabold text-fg"
-              style="font-size: clamp(2.5rem, 6.5vw, 5.5rem); line-height: 0.98; letter-spacing: var(--ls-tight); text-wrap: balance;"
-            >
-              Header y Footer instalados. <span class="text-red">El sitio empieza a tomar forma.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={160}>
-            <p class="lead mt-8">
-              Esta página existe únicamente para validar los primitives y patterns en contexto antes de pasar a páginas reales. Inspeccione la navegación, los megamenus, el menú móvil y el comportamiento del header al hacer scroll.
-            </p>
-          </Reveal>
-        </div>
-
-        <div class="lg:col-span-4 lg:col-start-9">
-          <Reveal delay={220}>
-            <div class="border-t border-border-soft pt-6">
-              <Eyebrow tone="fg">Estado actual</Eyebrow>
-              <dl class="mt-6 flex flex-col gap-4 text-[14px]">
-                <div class="flex justify-between items-baseline gap-4">
-                  <dt class="text-fg-muted">Primitives</dt>
-                  <dd class="font-medium">4</dd>
-                </div>
-                <div class="flex justify-between items-baseline gap-4">
-                  <dt class="text-fg-muted">Patterns</dt>
-                  <dd class="font-medium">3</dd>
-                </div>
-                <div class="flex justify-between items-baseline gap-4">
-                  <dt class="text-fg-muted">Motion</dt>
-                  <dd class="font-medium">Reveal · IO</dd>
-                </div>
-                <div class="flex justify-between items-baseline gap-4">
-                  <dt class="text-fg-muted">Idioma</dt>
-                  <dd class="font-medium">Español (CO)</dd>
-                </div>
-              </dl>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </SectionFrame>
-
-    {/* Sandbox de Buttons */}
-    <SectionFrame tone="soft" spacing="lg">
-      <Reveal>
-        <Eyebrow bar>Sandbox · Buttons</Eyebrow>
-        <h2
-          class="mt-4 font-display font-bold"
-          style="font-size: clamp(1.875rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: var(--ls-snug);"
-        >
-          Interacción base.
-        </h2>
-      </Reveal>
-
-      <Reveal delay={120}>
-        <div class="mt-10 flex flex-wrap items-center gap-4">
-          <Button variant="primary" arrow>Solicitar cotización</Button>
-          <Button variant="outline" arrow>Ver portafolio</Button>
-          <Button variant="ghost">Más información</Button>
-          <Button variant="primary" size="sm">Acción pequeña</Button>
-        </div>
-      </Reveal>
-
-      <Reveal delay={180}>
-        <div class="mt-6 bg-ink-900 text-white p-8 inline-flex flex-wrap items-center gap-4">
-          <Button variant="primary" arrow>CTA principal</Button>
-          <Button variant="outline-inverse" arrow>CTA sobre oscuro</Button>
-        </div>
-      </Reveal>
-    </SectionFrame>
-
-    {/* Sandbox de Eyebrow */}
-    <SectionFrame spacing="lg">
-      <Reveal>
-        <Eyebrow bar>Sandbox · Eyebrows</Eyebrow>
-        <h2
-          class="mt-4 font-display font-bold"
-          style="font-size: clamp(1.875rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: var(--ls-snug);"
-        >
-          Etiquetas y jerarquía.
-        </h2>
-      </Reveal>
-
-      <Reveal delay={120}>
-        <div class="mt-10 grid sm:grid-cols-3 gap-8">
-          <div class="border-t border-border-soft pt-5">
-            <Eyebrow>Sin barra · Rojo</Eyebrow>
-            <p class="mt-3 text-[14px] text-fg-muted">Default. Para títulos de sección discretos.</p>
-          </div>
-          <div class="border-t border-border-soft pt-5">
-            <Eyebrow bar>Con barra · Rojo</Eyebrow>
-            <p class="mt-3 text-[14px] text-fg-muted">Usar en momentos clave (hero, secciones señal).</p>
-          </div>
-          <div class="border-t border-border-soft pt-5">
-            <Eyebrow tone="fg">Tono neutro</Eyebrow>
-            <p class="mt-3 text-[14px] text-fg-muted">Para etiquetas que no compiten con el contenido.</p>
-          </div>
-        </div>
-      </Reveal>
-    </SectionFrame>
-
-    {/* Inverso preview */}
-    <SectionFrame tone="inverse" spacing="lg">
-      <Reveal>
-        <Eyebrow bar tone="red">Sandbox · Sección inversa</Eyebrow>
-        <h2
-          class="mt-4 font-display font-bold text-white"
-          style="font-size: clamp(1.875rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: var(--ls-snug);"
-        >
-          {company.ethos}
-        </h2>
-        <p class="mt-6 text-[18px] leading-[1.6] text-white/75 max-w-[58ch]">
-          Más de {company.yearsExperience} años desarrollando proyectos civiles, industriales, comerciales y residenciales. {company.tagline}
-        </p>
-      </Reveal>
-    </SectionFrame>
+  <main id="main">
+    <HomeHero />
   </main>
 
   <Footer />
