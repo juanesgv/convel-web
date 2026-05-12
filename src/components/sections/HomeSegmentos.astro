@@ -1,0 +1,244 @@
+---
+import SectionFrame from '../patterns/SectionFrame.astro';
+import Eyebrow from '../primitives/Eyebrow.astro';
+import Reveal from '../motion/Reveal.astro';
+import Icon from '../primitives/Icon.astro';
+
+type Segmento = {
+  num: string;
+  title: string;
+  qualifier: string;
+  href: string;
+};
+
+/**
+ * Catálogo editorial 4×2 desktop · 2×4 tablet · 1×8 mobile.
+ * 7 segmentos + 1 celda CTA editorial integrada en posición #8.
+ */
+const segmentos: Segmento[] = [
+  { num: '01', title: 'Vivienda',     qualifier: 'Edificación residencial',         href: '/segmentos/vivienda' },
+  { num: '02', title: 'Alojamiento',  qualifier: 'Hotelería y servicios',           href: '/segmentos/alojamiento' },
+  { num: '03', title: 'Salud',        qualifier: 'Hospitales y centros clínicos',   href: '/segmentos/salud' },
+  { num: '04', title: 'Industria',    qualifier: 'Plantas, bodegas y logística',    href: '/segmentos/industria' },
+  { num: '05', title: 'Corporativo',  qualifier: 'Oficinas y edificios mixtos',     href: '/segmentos/corporativo' },
+  { num: '06', title: 'Educación',    qualifier: 'Colegios y campus',               href: '/segmentos/educacion' },
+  { num: '07', title: 'Comercio',     qualifier: 'Retail y centros comerciales',    href: '/segmentos/comercio' },
+];
+---
+<SectionFrame
+  as="section"
+  tone="muted"
+  spacing="xl"
+  id="segmentos"
+>
+  {/* Cabecera */}
+  <div class="cv-segmentos-head">
+    <Reveal>
+      <Eyebrow bar>Segmentos</Eyebrow>
+    </Reveal>
+    <Reveal delay={120} duration="xslow">
+      <h2 class="cv-segmentos-title">
+        Una sola firma. Siete sectores.
+      </h2>
+    </Reveal>
+  </div>
+
+  {/* Hairline arquitectónico — apertura del catálogo */}
+  <Reveal delay={220}>
+    <div class="cv-segmentos-rule-top" aria-hidden="true"></div>
+  </Reveal>
+
+  {/* Catálogo editorial — 4×2 desktop · 2×4 tablet · 1×8 mobile */}
+  <ol class="cv-segmentos-grid" role="list">
+    {segmentos.map((s, i) => (
+      <Reveal as="li" delay={300 + i * 50} class="cv-segmentos-cell-wrap">
+        <a href={s.href} class="cv-segmentos-cell group">
+          <span class="cv-segmentos-num">{s.num}</span>
+          <div class="cv-segmentos-body">
+            <h3 class="cv-segmentos-name">{s.title}</h3>
+            <span class="cv-segmentos-qualifier">{s.qualifier}</span>
+          </div>
+          <Icon
+            name="arrow-up-right"
+            size={16}
+            class="cv-segmentos-arrow"
+          />
+        </a>
+      </Reveal>
+    ))}
+
+    {/* CTA editorial integrada — celda #8 (bottom-right en 4×2 desktop) */}
+    <Reveal as="li" delay={300 + segmentos.length * 50} class="cv-segmentos-cell-wrap cv-segmentos-cta-wrap">
+      <a href="/experiencia/casos-de-estudio" class="cv-segmentos-cell cv-segmentos-cta group">
+        <span class="cv-segmentos-cta-label">
+          Conozca los proyectos construidos por sector
+        </span>
+        <Icon
+          name="arrow-up-right"
+          size={20}
+          class="cv-segmentos-arrow cv-segmentos-cta-arrow"
+        />
+      </a>
+    </Reveal>
+  </ol>
+</SectionFrame>
+
+<style>
+  /* ===========================================================================
+     Segmentos — El Catálogo Editorial 4×2
+     Grid 4 cols × 2 filas desktop. 7 segmentos + CTA integrada celda #8.
+     Atmósfera stone-200 (--bg-muted) — 4ª capa atmosférica del Home.
+     =========================================================================== */
+
+  /* ----- Cabecera ----- */
+  .cv-segmentos-head {
+    max-width: 56ch;
+  }
+  .cv-segmentos-title {
+    margin: 0;
+    margin-top: clamp(20px, 3vh, 32px);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--fg);
+    text-wrap: balance;
+  }
+
+  /* ----- Hairline apertura ----- */
+  .cv-segmentos-rule-top {
+    margin-top: clamp(48px, 8vh, 80px);
+    height: 1px;
+    width: 100%;
+    background: var(--convel-stone-700);
+    opacity: 0.22;
+  }
+
+  /* ===========================================================================
+     Catálogo modular — grid + hairlines vía gap
+     =========================================================================== */
+  .cv-segmentos-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: rgba(110, 99, 91, 0.22); /* stone-700 al 22% = hairlines */
+  }
+  @media (min-width: 640px) {
+    .cv-segmentos-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1024px) {
+    .cv-segmentos-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ----- Wrapper de celda ----- */
+  .cv-segmentos-cell-wrap {
+    display: block;
+    background: var(--bg-muted);
+  }
+
+  /* ----- Celda base ----- */
+  .cv-segmentos-cell {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3.5vh, 36px);
+    padding: clamp(24px, 3.5vh, 36px);
+    min-height: clamp(220px, 26vh, 280px);
+    color: var(--fg);
+    transition: background-color var(--dur-base) var(--ease-standard);
+    height: 100%;
+  }
+  .cv-segmentos-cell:hover {
+    background: rgba(244, 242, 238, 0.6); /* warm-white-off translúcido — subida tonal sutil */
+  }
+
+  /* ----- Número ----- */
+  .cv-segmentos-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: var(--ls-wide);
+    color: var(--convel-stone-700);
+  }
+
+  /* ----- Cuerpo: nombre + qualifier ----- */
+  .cv-segmentos-body {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.5vh, 16px);
+  }
+  .cv-segmentos-name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.375rem, 2vw, 1.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  .cv-segmentos-cell:hover .cv-segmentos-name {
+    color: var(--fg-strong);
+  }
+  .cv-segmentos-qualifier {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--ls-eyebrow);
+    color: var(--convel-stone-700);
+    line-height: 1.5;
+    max-width: 24ch;
+  }
+
+  /* ----- Arrow ----- */
+  .cv-segmentos-arrow {
+    margin-top: auto;
+    align-self: flex-end;
+    color: var(--convel-stone-500);
+    transition:
+      color var(--dur-base) var(--ease-standard),
+      transform var(--dur-base) var(--ease-standard);
+  }
+  .cv-segmentos-cell:hover .cv-segmentos-arrow {
+    color: var(--fg);
+    transform: translate(4px, -4px);
+  }
+
+  /* ===========================================================================
+     CTA editorial integrada — celda #8
+     Mismo molde estructural · sin número · label en display medium.
+     =========================================================================== */
+  .cv-segmentos-cta-label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--fg);
+    text-wrap: pretty;
+    max-width: 24ch;
+  }
+  .cv-segmentos-cta-arrow {
+    color: var(--convel-stone-700); /* más presente — micro-jerarquía */
+  }
+  .cv-segmentos-cta:hover .cv-segmentos-cta-arrow {
+    color: var(--fg);
+    transform: translate(6px, -6px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-segmentos-cell,
+    .cv-segmentos-name,
+    .cv-segmentos-arrow {
+      transition: none !important;
+    }
+  }
+</style>
