@@ -1,25 +1,34 @@
 /* ===========================================================================
    Convel — Design tokens
    Fuente: design system canónico generado con Claude Design a partir del
-   manual de marca oficial. Adaptado para este proyecto:
-     · Tipografía display + body: Montserrat Variable (decisión de proyecto,
-       sustituye Manrope sugerido en el DS).
-     · Mono: DM Mono.
-     · Fuentes self-hosted vía @fontsource (importadas desde el layout).
-   No editar duplicando: este archivo es la única fuente de verdad. Tailwind
-   v4 mapea estos valores vía @theme en theme.css.
+   manual de marca oficial + lámina ACENTO COLOR + brochure institucional.
+
+   Dirección cromática actual (validada con brochure y lámina de acentos):
+     · Stone (warm gray) como protagonista — concreto cálido institucional.
+     · Mist (cool gray) como atmósfera técnica disponible.
+     · Sage (green tints) como material orgánico arquitectónico opt-in.
+     · Rojo restringido a momentos ceremoniales (logo, CTA primary, hovers
+       específicos, footer tagline).
+     · Sin negro puro ni blancos hospitalarios — la materialidad vive en
+       warm-white-off como bg y stone-700 como inverse profundo.
+
+   Tipografía: Montserrat Variable (display + body), DM Mono (technical).
+   Tokens son la única fuente de verdad — Tailwind v4 los consume vía @theme.
    =========================================================================== */
 
 :root {
   /* ===== Paleta de marca (verbatim de las cartas de color oficiales) ===== */
-  --convel-red:        #E54530;  /* Pantone P 45-7 C  · RGB 229,69,48  */
-  --convel-green:      #41542A;  /* Verde · sostenibilidad · RGB 65,84,42 */
+  --convel-red:        #E54530;  /* Pantone P 45-7 C  · uso ceremonial */
+  --convel-green:      #41542A;  /* Acento sage · architectural organic */
   --convel-black:      #000000;
   --convel-white:      #FFFFFF;
-  --convel-mist:       #D4DFE7;  /* Pantone P 117-9 C · RGB 212,223,231 */
-  --convel-stone:      #BAADA5;  /* Pantone P 169-6 C · RGB 186,173,165 */
+  --convel-mist:       #D4DFE7;  /* Pantone P 117-9 C · cool atmosphere */
+  --convel-stone:      #BAADA5;  /* Pantone P 169-6 C · warm concrete */
 
-  /* ===== Escalas (extrapoladas para UI, no oficiales) ===== */
+  /* ===== Warm-white-off ·  papel cálido del brochure ===== */
+  --convel-warm-white:    #F4F2EE;  /* bg protagonista — calienta sin envejecer */
+
+  /* ===== Red — extrapolaciones (uso ceremonial muy puntual) ===== */
   --convel-red-700:    #B8331F;
   --convel-red-600:    #CF3A26;
   --convel-red-500:    #E54530;
@@ -29,12 +38,14 @@
   --convel-red-100:    #FCE4DF;
   --convel-red-50:     #FEF3F0;
 
+  /* ===== Mist — cool atmosphere (opt-in para secciones técnicas) ===== */
   --convel-mist-200:   #BFCED9;
   --convel-mist-100:   #D4DFE7;
   --convel-mist-50:    #ECF1F5;
   --convel-mist-25:    #F6F8FA;
 
-  --convel-stone-700:  #6E635B;
+  /* ===== Stone — warm concrete (protagonista del sistema) ===== */
+  --convel-stone-700:  #6E635B;  /* grafito cálido · bg-inverse del sitio */
   --convel-stone-600:  #8C7F76;
   --convel-stone-500:  #A89B91;
   --convel-stone-400:  #BAADA5;
@@ -42,7 +53,18 @@
   --convel-stone-200:  #DDD6D1;
   --convel-stone-100:  #EDE9E5;
 
-  --convel-ink-900:    #0B0B0B;
+  /* ===== Green tints — material orgánico (opt-in para sustainability) =====
+     Derivados desde --convel-green #41542A para uso UI institucional.
+     Los tonos saturados (600+) sólo aparecen en contextos materiales
+     específicos (sostenibilidad, LEED, eco-data). */
+  --convel-green-50:   #F1F2EC;  /* atmospheric bg ultra-soft */
+  --convel-green-100:  #E5E8DE;  /* hover atmospheric */
+  --convel-green-200:  #CFD4C5;  /* divider / surface */
+  --convel-green-300:  #A5B197;  /* accent muted */
+  --convel-green-600:  #41542A;  /* = --convel-green, full sage */
+
+  /* ===== Ink — texto y elementos forge ===== */
+  --convel-ink-900:    #0B0B0B;  /* texto principal — sigue siendo grafito casi negro */
   --convel-ink-800:    #1A1A1A;
   --convel-ink-700:    #2B2B2B;
   --convel-ink-600:    #4A4A4A;
@@ -50,17 +72,32 @@
   --convel-ink-400:    #8E8E8E;
   --convel-ink-300:    #B5B5B5;
 
-  /* ===== Tokens semánticos ===== */
-  --bg:                var(--convel-white);
-  --bg-soft:           var(--convel-mist-25);
-  --bg-muted:          var(--convel-mist-50);
-  --bg-inverse:        var(--convel-ink-900);
-  --bg-accent:         var(--convel-red);
+  /* ===========================================================================
+     Tokens semánticos — la API que consumen los componentes
+     ===========================================================================
+     Filosofía:
+     · Los componentes nunca tocan paleta cruda — solo semantic tokens.
+     · Cambios atmosféricos del sistema se hacen aquí, no en componentes.
+     =========================================================================== */
 
-  --surface:           var(--convel-white);
-  --surface-raised:    var(--convel-white);
-  --surface-sunken:    var(--convel-mist-50);
+  /* ----- Backgrounds protagonistas (Tier 1 — 90% del UI) ----- */
+  --bg:                var(--convel-warm-white);   /* papel cálido */
+  --bg-soft:           var(--convel-stone-100);    /* concreto claro */
+  --bg-muted:          var(--convel-stone-200);    /* concreto medio */
+  --bg-inverse:        var(--convel-stone-700);    /* grafito cálido — NO negro */
+  --bg-accent:         var(--convel-red);          /* ceremonial */
 
+  /* ----- Backgrounds atmosféricos (Tier 2 — opt-in por sección) ----- */
+  --bg-cool:           var(--convel-mist-25);      /* aire técnico / reflexivo */
+  --bg-sage:           var(--convel-green-50);     /* material orgánico controlado */
+  --bg-stone-deep:     var(--convel-stone-200);    /* alias para variación stone */
+
+  /* ----- Superficies ----- */
+  --surface:           var(--convel-warm-white);
+  --surface-raised:    var(--convel-warm-white);
+  --surface-sunken:    var(--convel-stone-100);
+
+  /* ----- Foreground (texto) ----- */
   --fg:                var(--convel-ink-900);
   --fg-strong:         #000000;
   --fg-muted:          var(--convel-ink-600);
@@ -68,19 +105,28 @@
   --fg-faint:          var(--convel-ink-400);
   --fg-on-accent:      var(--convel-white);
   --fg-on-inverse:     var(--convel-white);
-  --fg-link:           var(--convel-red-600);
+  --fg-link:           var(--convel-red-600);      /* ceremonial */
 
-  --border:            var(--convel-mist-200);
-  --border-soft:       var(--convel-mist-100);
+  /* ----- Borders / dividers ----- */
+  --border:            var(--convel-stone-300);    /* warm hairline */
+  --border-soft:       var(--convel-stone-200);
+  --border-cool:       var(--convel-mist-200);     /* opt-in para secciones cool */
   --border-strong:     var(--convel-ink-800);
-  --border-accent:     var(--convel-red);
+  --border-accent:     var(--convel-stone-600);    /* era red, ahora warm grafito */
 
+  /* ----- Acentos materiales (Tier 3 — uso semántico muy específico) ----- */
+  --accent-sage:       var(--convel-green);        /* sustainability moments */
+  --accent-mist:       var(--convel-mist-200);     /* technical / blueprint moments */
+
+  /* ----- Status (sin cambio) ----- */
   --success:           var(--convel-green);
   --warning:           #C68A1B;
   --danger:            var(--convel-red-600);
   --info:              #2A6FA8;
 
-  /* ===== Tipografía ===== */
+  /* ===========================================================================
+     Tipografía
+     =========================================================================== */
   --font-display:      "Montserrat Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-body:         "Montserrat Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono:         "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -92,7 +138,6 @@
   --fw-bold:           700;
   --fw-extrabold:      800;
 
-  /* Escala modular base 16, ratio ~1.25 */
   --fs-12:  0.75rem;
   --fs-14:  0.875rem;
   --fs-16:  1rem;
@@ -111,13 +156,15 @@
   --lh-normal:   1.45;
   --lh-relaxed:  1.6;
 
-  --ls-tight:    -0.035em;   /* hero display — apretado para densidad editorial con Montserrat */
+  --ls-tight:    -0.035em;
   --ls-snug:     -0.02em;
   --ls-normal:   0;
   --ls-wide:     0.04em;
   --ls-eyebrow:  0.16em;
 
-  /* ===== Spacing (base 4px) ===== */
+  /* ===========================================================================
+     Spacing (4px base)
+     =========================================================================== */
   --sp-1:  4px;
   --sp-2:  8px;
   --sp-3:  12px;
@@ -132,20 +179,26 @@
   --sp-24: 96px;
   --sp-32: 128px;
 
-  /* ===== Radius (hard-edged por defecto) ===== */
+  /* ===========================================================================
+     Radius (hard-edged por defecto)
+     =========================================================================== */
   --r-0:    0px;
   --r-1:    2px;
   --r-2:    4px;
   --r-3:    8px;
   --r-pill: 999px;
 
-  /* ===== Shadows (architectural, restrained) ===== */
+  /* ===========================================================================
+     Shadows (architectural, restrained) — sin cambio
+     =========================================================================== */
   --shadow-1: 0 1px 2px rgba(11,11,11,0.06);
   --shadow-2: 0 2px 8px rgba(11,11,11,0.08);
   --shadow-3: 0 12px 32px -12px rgba(11,11,11,0.18);
   --shadow-4: 0 24px 60px -20px rgba(11,11,11,0.28);
 
-  /* ===== Motion ===== */
+  /* ===========================================================================
+     Motion
+     =========================================================================== */
   --ease-standard: cubic-bezier(0.32, 0.08, 0.24, 1);
   --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in:       cubic-bezier(0.7, 0, 0.84, 0);
@@ -154,7 +207,9 @@
   --dur-slow:      420ms;
   --dur-xslow:     640ms;
 
-  /* ===== Layout ===== */
+  /* ===========================================================================
+     Layout
+     =========================================================================== */
   --container-max: 1280px;
   --container-pad: clamp(20px, 4vw, 64px);
 }

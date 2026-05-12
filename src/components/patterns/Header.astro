@@ -216,9 +216,9 @@ const isActive = (href: string) => {
 </dialog>
 
 <style>
-  /* ===== Header — base solid (sin backdrop-filter por regla del DS) ===== */
+  /* ===== Header — base solid sobre warm-white (sin backdrop-filter) ===== */
   .cv-header {
-    background: rgba(255, 255, 255, 0.96);
+    background: rgba(244, 242, 238, 0.96); /* warm-white-off */
     color: var(--fg);
     transition:
       background-color var(--dur-base) var(--ease-standard),
@@ -335,7 +335,7 @@ const isActive = (href: string) => {
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    color: var(--convel-red-700);  /* AA-compliant on white */
+    color: var(--convel-stone-700);  /* warm grafito institucional */
     letter-spacing: var(--ls-eyebrow);
   }
   .cv-megamenu-desc {
@@ -385,7 +385,7 @@ const isActive = (href: string) => {
   .cv-megamenu-num {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--convel-red-700);  /* AA-compliant */
+    color: var(--convel-stone-700);  /* warm grafito institucional */
     letter-spacing: var(--ls-wide);
   }
   .cv-megamenu-title {
@@ -401,8 +401,9 @@ const isActive = (href: string) => {
       color var(--dur-base) var(--ease-standard),
       transform var(--dur-base) var(--ease-standard);
   }
+  /* Hover momento — único uso del rojo en megamenu, transitorio */
   .cv-megamenu-link:hover .cv-megamenu-arrow {
-    color: var(--convel-red-700);
+    color: var(--convel-red);
     transform: translate(2px, -2px);
   }
 
@@ -470,7 +471,7 @@ const isActive = (href: string) => {
   .cv-mobile-num {
     font-family: var(--font-mono);
     font-size: 12px;
-    color: var(--convel-red-700);
+    color: var(--convel-stone-700); /* warm grafito */
     flex-shrink: 0;
     padding-top: 4px;
     letter-spacing: var(--ls-wide);

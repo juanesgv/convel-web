@@ -1,13 +1,13 @@
 /* ===========================================================================
    Convel — Tailwind v4 theme
    Mapea los tokens de tokens.css al sistema de Tailwind v4 vía @theme.
-   Single source of truth: tokens.css. Aquí solo se referencian.
+   Single source of truth: tokens.css.
    =========================================================================== */
 @import "tailwindcss";
 @import "./tokens.css";
 
 @theme {
-  /* ---- Reset utilidades que no usamos del default Tailwind ---- */
+  /* ---- Reset utilidades default Tailwind ---- */
   --color-*: initial;
   --font-*: initial;
   --radius-*: initial;
@@ -26,7 +26,7 @@
   --breakpoint-xl:  1280px;
   --breakpoint-2xl: 1536px;
 
-  /* ---- Colores de marca ---- */
+  /* ---- Paleta de marca cruda (uso muy restringido) ---- */
   --color-red:        var(--convel-red);
   --color-red-50:     var(--convel-red-50);
   --color-red-100:    var(--convel-red-100);
@@ -38,6 +38,11 @@
   --color-red-700:    var(--convel-red-700);
 
   --color-green:      var(--convel-green);
+  --color-green-50:   var(--convel-green-50);
+  --color-green-100:  var(--convel-green-100);
+  --color-green-200:  var(--convel-green-200);
+  --color-green-300:  var(--convel-green-300);
+  --color-green-600:  var(--convel-green-600);
 
   --color-mist:       var(--convel-mist);
   --color-mist-25:    var(--convel-mist-25);
@@ -64,21 +69,32 @@
 
   --color-black:      var(--convel-black);
   --color-white:      var(--convel-white);
+  --color-warm-white: var(--convel-warm-white);
 
-  /* Colores semánticos (uso preferido en componentes) */
-  --color-bg:           var(--bg);
-  --color-bg-soft:      var(--bg-soft);
-  --color-bg-muted:     var(--bg-muted);
-  --color-bg-inverse:   var(--bg-inverse);
-  --color-surface:      var(--surface);
-  --color-fg:           var(--fg);
-  --color-fg-muted:     var(--fg-muted);
-  --color-fg-subtle:    var(--fg-subtle);
-  --color-fg-faint:     var(--fg-faint);
+  /* ---- Colores semánticos (uso preferido en componentes) ---- */
+  --color-bg:            var(--bg);
+  --color-bg-soft:       var(--bg-soft);
+  --color-bg-muted:      var(--bg-muted);
+  --color-bg-inverse:    var(--bg-inverse);
+  --color-bg-cool:       var(--bg-cool);
+  --color-bg-sage:       var(--bg-sage);
+  --color-bg-stone-deep: var(--bg-stone-deep);
+
+  --color-surface:       var(--surface);
+  --color-fg:            var(--fg);
+  --color-fg-muted:      var(--fg-muted);
+  --color-fg-subtle:     var(--fg-subtle);
+  --color-fg-faint:      var(--fg-faint);
   --color-fg-on-inverse: var(--fg-on-inverse);
-  --color-border:       var(--border);
-  --color-border-soft:  var(--border-soft);
+
+  --color-border:        var(--border);
+  --color-border-soft:   var(--border-soft);
+  --color-border-cool:   var(--border-cool);
   --color-border-strong: var(--border-strong);
+  --color-border-accent: var(--border-accent);
+
+  --color-accent-sage:   var(--accent-sage);
+  --color-accent-mist:   var(--accent-mist);
 
   /* ---- Tipografía ---- */
   --font-display: var(--font-display);
@@ -185,14 +201,16 @@
     cursor: pointer;
   }
 
+  /* Selección — ceremonial red (uno de los momentos permitidos) */
   ::selection { background: var(--convel-red); color: var(--convel-white); }
 
+  /* Focus ring — ceremonial red para alta visibilidad accesible */
   :focus-visible {
     outline: 2px solid var(--convel-red);
     outline-offset: 2px;
   }
 
-  /* Respeto a prefers-reduced-motion en todo el sitio */
+  /* Respeto a prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -204,7 +222,7 @@
 }
 
 /* ===========================================================================
-   Utilities semánticas (no son utilities Tailwind — son helpers de marca)
+   Utilities de marca (helpers, no Tailwind utilities)
    =========================================================================== */
 .eyebrow {
   font-family: var(--font-body);
@@ -212,7 +230,7 @@
   font-weight: var(--fw-semibold);
   text-transform: uppercase;
   letter-spacing: var(--ls-eyebrow);
-  color: var(--convel-red);
+  color: var(--convel-stone-700);  /* recalibrado — antes era red */
 }
 
 .lead {

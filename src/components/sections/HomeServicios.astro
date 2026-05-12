@@ -183,7 +183,7 @@ const servicios = [
     font-size: 11px;
     font-weight: 500;
     letter-spacing: var(--ls-wide);
-    color: var(--convel-red-700); /* AA-compliant para texto pequeño sobre claro */
+    color: var(--convel-stone-700); /* warm grafito — institucional */
   }
 
   .cv-servicios-name {
@@ -197,8 +197,9 @@ const servicios = [
     color: var(--fg);
     transition: color var(--dur-fast) var(--ease-standard);
   }
+  /* Hover sobrio — no enciende rojo, profundiza el grafito */
   .cv-servicios-link:hover .cv-servicios-name {
-    color: var(--convel-red-700);
+    color: var(--convel-stone-700);
   }
 
   .cv-servicios-desc {
@@ -232,6 +233,7 @@ const servicios = [
   .cv-servicios-cta-arrow {
     transition: transform var(--dur-base) var(--ease-standard);
   }
+  /* Hover arrow — momento de hover específico permitido para el rojo */
   .cv-servicios-link:hover .cv-servicios-cta-arrow {
     transform: translateX(4px);
     color: var(--convel-red);

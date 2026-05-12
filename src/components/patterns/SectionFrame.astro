@@ -3,7 +3,16 @@ import Container from '../primitives/Container.astro';
 
 interface Props {
   as?: 'section' | 'div' | 'article' | 'aside';
-  tone?: 'default' | 'soft' | 'muted' | 'inverse' | 'stone' | 'green';
+  /**
+   * Atmósferas disponibles:
+   * · default → warm-white (papel cálido, bg protagonista)
+   * · soft    → stone-100 (concreto claro, surface secundaria)
+   * · muted   → stone-200 (concreto medio, surface enfática)
+   * · inverse → stone-700 (grafito cálido — NO negro)
+   * · cool    → mist-25 (aire técnico, opt-in)
+   * · sage    → green-50 (material orgánico, opt-in para sustainability)
+   */
+  tone?: 'default' | 'soft' | 'muted' | 'inverse' | 'cool' | 'sage';
   spacing?: 'sm' | 'md' | 'lg' | 'xl';
   containerSize?: 'editorial' | 'wide' | 'narrow';
   bleed?: boolean;
@@ -23,11 +32,11 @@ const {
 
 const toneClass = {
   default: 'bg-bg text-fg',
-  soft: 'bg-mist-25 text-fg',
-  muted: 'bg-mist-50 text-fg',
-  inverse: 'bg-ink-900 text-white',
-  stone: 'bg-stone-100 text-fg',
-  green: 'bg-green text-white',
+  soft:    'bg-bg-soft text-fg',
+  muted:   'bg-bg-muted text-fg',
+  inverse: 'bg-bg-inverse text-fg-on-inverse',
+  cool:    'bg-bg-cool text-fg',
+  sage:    'bg-bg-sage text-fg',
 }[tone];
 
 const spacingClass = {

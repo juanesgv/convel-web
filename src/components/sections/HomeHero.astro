@@ -33,7 +33,6 @@ import { company } from '../../data/company.ts';
               Conózcanos
             </Button>
             <span class="cv-hero-signature" aria-hidden="true">
-              <span class="cv-hero-signature-dot"></span>
               {company.tagline}
             </span>
           </div>
@@ -44,7 +43,6 @@ import { company } from '../../data/company.ts';
     {/* Image column — col 8-12, sangrada al borde del viewport en lg+ */}
     <Reveal as="div" delay={80} duration="xslow" class="cv-hero-media-wrap">
       <div class="cv-hero-media">
-        <div class="cv-hero-media-bar" aria-hidden="true"></div>
         <div
           class="cv-hero-media-placeholder"
           role="img"
@@ -138,12 +136,6 @@ import { company } from '../../data/company.ts';
     font-weight: 500;
     /* aria-hidden porque el tagline visualmente acompaña al CTA pero ya está en otros lugares del sitio */
   }
-  .cv-hero-signature-dot {
-    width: 4px;
-    height: 4px;
-    background: var(--convel-red);
-    flex-shrink: 0;
-  }
 
   /* ----- Columna imagen ----- */
   .cv-hero-media-wrap {
@@ -162,33 +154,28 @@ import { company } from '../../data/company.ts';
     position: absolute;
     inset: 0;
     overflow: hidden;
-    /* placeholder gradient: stone cálido → mist frío → ink profundo */
+    /* Placeholder material institucional — todo stone, sin tensión warm/cool.
+       Sugiere concreto cálido como material principal. */
     background:
-      linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(11, 11, 11, 0.45) 100%),
-      linear-gradient(135deg, #8C7F76 0%, #C0B5AD 30%, #6E7884 65%, #1A1A1A 100%);
-  }
-
-  /* Barra roja superior — único momento del "detalle arquitectónico" rojo en este hero */
-  .cv-hero-media-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--convel-red);
-    z-index: 2;
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(11, 11, 11, 0.30) 100%),
+      linear-gradient(135deg,
+        var(--convel-stone-300) 0%,
+        var(--convel-stone-400) 35%,
+        var(--convel-stone-600) 70%,
+        var(--convel-stone-700) 100%
+      );
   }
 
   /* Pinstripe vertical sutil — sugiere formwork de concreto o mullions de fachada */
   .cv-hero-media-placeholder {
     position: absolute;
-    inset: 4px 0 0 0;
+    inset: 0;
     background-image: repeating-linear-gradient(
       90deg,
       transparent 0,
       transparent 79px,
-      rgba(255, 255, 255, 0.035) 79px,
-      rgba(255, 255, 255, 0.035) 80px
+      rgba(255, 255, 255, 0.030) 79px,
+      rgba(255, 255, 255, 0.030) 80px
     );
     mix-blend-mode: overlay;
   }

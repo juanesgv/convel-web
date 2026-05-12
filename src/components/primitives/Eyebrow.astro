@@ -1,24 +1,35 @@
 ---
 interface Props {
   as?: 'span' | 'p' | 'div';
-  tone?: 'red' | 'fg' | 'inverse';
+  /**
+   * · stone   → default · grafito sobre claros (uso institucional)
+   * · red     → ceremonial · sólo para momentos brand muy específicos
+   * · fg      → utility · neutro fg-muted con barra fg
+   * · inverse → sobre fondos oscuros (stone-700 / inverse)
+   * · sage    → para contextos sustainability
+   */
+  tone?: 'stone' | 'red' | 'fg' | 'inverse' | 'sage';
   bar?: boolean;
   class?: string;
 }
 
-const { as = 'span', tone = 'red', bar = false, class: className = '' } = Astro.props;
+const { as = 'span', tone = 'stone', bar = false, class: className = '' } = Astro.props;
 const Tag = as;
 
 const toneClass = {
-  red: 'text-red',
-  fg: 'text-fg-muted',
-  inverse: 'text-white/70',
+  stone:   'text-stone-700',
+  red:     'text-red-700',
+  fg:      'text-fg-muted',
+  inverse: 'text-white/75',
+  sage:    'text-green',
 }[tone];
 
 const barClass = {
-  red: 'bg-red',
-  fg: 'bg-fg-muted',
-  inverse: 'bg-white/40',
+  stone:   'bg-stone-600',
+  red:     'bg-red',
+  fg:      'bg-fg-muted',
+  inverse: 'bg-white/45',
+  sage:    'bg-green',
 }[tone];
 ---
 <Tag

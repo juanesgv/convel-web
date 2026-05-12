@@ -26,14 +26,14 @@ const stats: Stat[] = [
   {/* Cabecera de sección — contenida */}
   <div class="cv-stats-head">
     <Reveal>
-      <Eyebrow bar tone="red">Trayectoria</Eyebrow>
+      <Eyebrow bar tone="inverse">Trayectoria</Eyebrow>
     </Reveal>
     <Reveal delay={120} duration="xslow">
       <h2 class="cv-stats-title">Una promesa medible.</h2>
     </Reveal>
   </div>
 
-  {/* Eje rojo estructural — único acento cromático */}
+  {/* Hairline estructural — sutil sobre el grafito */}
   <Reveal delay={200}>
     <div class="cv-stats-rule" aria-hidden="true"></div>
   </Reveal>
@@ -74,13 +74,12 @@ const stats: Stat[] = [
     text-wrap: balance;
   }
 
-  /* Eje rojo horizontal — único acento cromático estructural */
+  /* Hairline horizontal — sutil sobre grafito cálido */
   .cv-stats-rule {
     margin-top: clamp(32px, 5vh, 48px);
     height: 1px;
     width: 100%;
-    background: var(--convel-red);
-    opacity: 0.85;
+    background: rgba(255, 255, 255, 0.18);
   }
 
   /* ----- Franja 4×1 ----- */
