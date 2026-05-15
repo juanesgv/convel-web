@@ -1,0 +1,1016 @@
+<!-- ============================================================================
+     Convel — Header / Menu standalone para WordPress (Shortcoder)
+     ----------------------------------------------------------------------------
+     · Réplica fiel del header Astro (src/components/patterns/Header.astro).
+     · 100% autocontenido: HTML + <style> + <script>. Sin dependencias externas.
+     · Namespacing `cvwp-` para no colisionar con themes ni plugins de WP.
+     · Reemplaza el header del theme en las páginas donde se use el shortcode.
+     ----------------------------------------------------------------------------
+     CONFIG — EDITAR ANTES DE PEGAR EN WORDPRESS:
+       · Sube los logos a la mediateca y reemplaza las URLs marcadas LOGO_*.
+       · Ajusta los href de los items si tu permalink en WP no coincide.
+       · `data-cta-href` y los enlaces se pueden cambiar en el HTML.
+     ============================================================================ -->
+
+<div class="cvwp-root">
+
+  <!-- ========== HEADER ========== -->
+  <header class="cvwp-header" data-scrolled="false" aria-label="Encabezado principal">
+    <div class="cvwp-container">
+
+      <!-- Wordmark -->
+      <a href="/" class="cvwp-wordmark" aria-label="convel · ir al inicio">
+        <!-- LOGO_BLACK: reemplazar src por la URL del logo oscuro en tu mediateca -->
+        <img
+          src="/wp-content/uploads/2026/04/logo-2.png"
+          alt=""
+          width="120" height="28"
+          class="cvwp-wordmark-dark"
+          fetchpriority="high"
+        />
+     
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="cvwp-nav" aria-label="Navegación principal">
+
+        <!-- Servicios (con megamenú) -->
+        <div class="cvwp-nav-item" data-has-menu="true">
+          <a href="/servicios" class="cvwp-nav-link">
+            <span class="cvwp-nav-label">Servicios</span>
+            <svg class="cvwp-nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </a>
+          <div class="cvwp-megamenu" role="group" aria-label="Categorías de Servicios" hidden>
+            <div class="cvwp-megamenu-inner">
+              <div class="cvwp-megamenu-grid">
+                <div class="cvwp-megamenu-context">
+                  <span class="cvwp-megamenu-eyebrow">Servicios</span>
+                  <p class="cvwp-megamenu-desc">Diseño, optimización, estructuración y construcción.</p>
+                  <a href="/servicios" class="cvwp-megamenu-overview">
+                    Ver servicios
+                    <svg class="cvwp-megamenu-overview-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </a>
+                </div>
+                <ul class="cvwp-megamenu-list">
+                  <li class="cvwp-megamenu-item">
+                    <a href="/servicios/disenos" class="cvwp-megamenu-link">
+                      <span class="cvwp-megamenu-num">01</span>
+                      <span class="cvwp-megamenu-title">Diseños</span>
+                      <svg class="cvwp-megamenu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </a>
+                  </li>
+                  <li class="cvwp-megamenu-item">
+                    <a href="/servicios/optimizacion" class="cvwp-megamenu-link">
+                      <span class="cvwp-megamenu-num">02</span>
+                      <span class="cvwp-megamenu-title">Optimización</span>
+                      <svg class="cvwp-megamenu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </a>
+                  </li>
+                  <li class="cvwp-megamenu-item">
+                    <a href="/servicios/estructuracion" class="cvwp-megamenu-link">
+                      <span class="cvwp-megamenu-num">03</span>
+                      <span class="cvwp-megamenu-title">Estructuración</span>
+                      <svg class="cvwp-megamenu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </a>
+                  </li>
+                  <li class="cvwp-megamenu-item">
+                    <a href="/servicios/construccion" class="cvwp-megamenu-link">
+                      <span class="cvwp-megamenu-num">04</span>
+                      <span class="cvwp-megamenu-title">Construcción</span>
+                      <svg class="cvwp-megamenu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experiencia (con megamenú) -->
+        <div class="cvwp-nav-item" data-has-menu="true">
+          <a href="/experiencia" class="cvwp-nav-link">
+            <span class="cvwp-nav-label">Experiencia</span>
+            <svg class="cvwp-nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </a>
+          <div class="cvwp-megamenu" role="group" aria-label="Categorías de Experiencia" hidden>
+            <div class="cvwp-megamenu-inner">
+              <div class="cvwp-megamenu-grid">
+                <div class="cvwp-megamenu-context">
+                  <span class="cvwp-megamenu-eyebrow">Experiencia</span>
+                  <p class="cvwp-megamenu-desc">Trayectoria, capacidad técnica y reconocimientos.</p>
+                  <a href="/experiencia" class="cvwp-megamenu-overview">
+                    Ver experiencia
+                    <svg class="cvwp-megamenu-overview-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </a>
+                </div>
+                <ul class="cvwp-megamenu-list">
+                  <li class="cvwp-megamenu-item">
+                    <a href="/experiencia/capacidad-tecnica" class="cvwp-megamenu-link">
+                      <span class="cvwp-megamenu-num">01</span>
+                      <span class="cvwp-megamenu-title">Capacidad técnica</span>
+                      <svg class="cvwp-megamenu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </a>
+                  </li>
+                  <li class="cvwp-megamenu-item">
+                    <a href="/experiencia/premios" class="cvwp-megamenu-link">
+                      <span class="cvwp-megamenu-num">02</span>
+                      <span class="cvwp-megamenu-title">Premios</span>
+                      <svg class="cvwp-megamenu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </a>
+                  </li>
+                  <li class="cvwp-megamenu-item">
+                    <a href="/experiencia/casos-de-estudio" class="cvwp-megamenu-link">
+                      <span class="cvwp-megamenu-num">03</span>
+                      <span class="cvwp-megamenu-title">Casos de estudio</span>
+                      <svg class="cvwp-megamenu-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Segmentos -->
+        <div class="cvwp-nav-item" data-has-menu="false">
+          <a href="/segmentos" class="cvwp-nav-link"><span class="cvwp-nav-label">Segmentos</span></a>
+        </div>
+
+        <!-- Quiénes Somos -->
+        <div class="cvwp-nav-item" data-has-menu="false">
+          <a href="/quienes-somos" class="cvwp-nav-link"><span class="cvwp-nav-label">Quiénes Somos</span></a>
+        </div>
+
+        <!-- Talento -->
+        <div class="cvwp-nav-item" data-has-menu="false">
+          <a href="/talento" class="cvwp-nav-link"><span class="cvwp-nav-label">Talento</span></a>
+        </div>
+
+        <!-- Proveedores -->
+        <div class="cvwp-nav-item" data-has-menu="false">
+          <a href="/proveedores" class="cvwp-nav-link"><span class="cvwp-nav-label">Proveedores</span></a>
+        </div>
+
+        <!-- Sostenibilidad -->
+        <div class="cvwp-nav-item" data-has-menu="false">
+          <a href="/sostenibilidad" class="cvwp-nav-link"><span class="cvwp-nav-label">Sostenibilidad</span></a>
+        </div>
+
+      </nav>
+
+      <!-- CTA + mobile trigger -->
+      <div class="cvwp-actions">
+        <a href="/contacto" class="cvwp-btn cvwp-btn--outline cvwp-cta-desktop">
+          <span>Contáctenos</span>
+          <svg class="cvwp-btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+
+        <button type="button" class="cvwp-mobile-trigger" aria-label="Menú" aria-controls="cvwp-mobile-menu" aria-expanded="false" data-open-menu>
+          <span class="cvwp-burger" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+
+    </div>
+    <div class="cvwp-header-hairline" aria-hidden="true"></div>
+  </header>
+
+  <!-- ========== MOBILE MENU (native <dialog>) ========== -->
+  <dialog id="cvwp-mobile-menu" class="cvwp-mobile-menu" aria-label="Menú principal">
+    <div class="cvwp-mobile-menu-inner">
+      <div class="cvwp-mobile-menu-top">
+        <a href="/" class="cvwp-mobile-logo" aria-label="convel · ir al inicio" data-mobile-link>
+          <img src="/wp-content/uploads/convel/logo-black.png" alt="" width="120" height="28" />
+        </a>
+        <button type="button" class="cvwp-mobile-close" aria-label="Cerrar menú" data-close-menu>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <nav class="cvwp-mobile-menu-nav" aria-label="Navegación principal">
+        <ul class="cvwp-mobile-list">
+
+          <li class="cvwp-mobile-li">
+            <a href="/servicios" class="cvwp-mobile-link" data-mobile-link>
+              <span class="cvwp-mobile-num">01</span>
+              <span class="cvwp-mobile-title">Servicios</span>
+            </a>
+            <ul class="cvwp-mobile-sublist">
+              <li><a href="/servicios/disenos" class="cvwp-mobile-sublink" data-mobile-link>Diseños</a></li>
+              <li><a href="/servicios/optimizacion" class="cvwp-mobile-sublink" data-mobile-link>Optimización</a></li>
+              <li><a href="/servicios/estructuracion" class="cvwp-mobile-sublink" data-mobile-link>Estructuración</a></li>
+              <li><a href="/servicios/construccion" class="cvwp-mobile-sublink" data-mobile-link>Construcción</a></li>
+            </ul>
+          </li>
+
+          <li class="cvwp-mobile-li">
+            <a href="/experiencia" class="cvwp-mobile-link" data-mobile-link>
+              <span class="cvwp-mobile-num">02</span>
+              <span class="cvwp-mobile-title">Experiencia</span>
+            </a>
+            <ul class="cvwp-mobile-sublist">
+              <li><a href="/experiencia/capacidad-tecnica" class="cvwp-mobile-sublink" data-mobile-link>Capacidad técnica</a></li>
+              <li><a href="/experiencia/premios" class="cvwp-mobile-sublink" data-mobile-link>Premios</a></li>
+              <li><a href="/experiencia/casos-de-estudio" class="cvwp-mobile-sublink" data-mobile-link>Casos de estudio</a></li>
+            </ul>
+          </li>
+
+          <li class="cvwp-mobile-li">
+            <a href="/segmentos" class="cvwp-mobile-link" data-mobile-link>
+              <span class="cvwp-mobile-num">03</span>
+              <span class="cvwp-mobile-title">Segmentos</span>
+            </a>
+          </li>
+
+          <li class="cvwp-mobile-li">
+            <a href="/quienes-somos" class="cvwp-mobile-link" data-mobile-link>
+              <span class="cvwp-mobile-num">04</span>
+              <span class="cvwp-mobile-title">Quiénes Somos</span>
+            </a>
+          </li>
+
+          <li class="cvwp-mobile-li">
+            <a href="/talento" class="cvwp-mobile-link" data-mobile-link>
+              <span class="cvwp-mobile-num">05</span>
+              <span class="cvwp-mobile-title">Talento</span>
+            </a>
+          </li>
+
+          <li class="cvwp-mobile-li">
+            <a href="/proveedores" class="cvwp-mobile-link" data-mobile-link>
+              <span class="cvwp-mobile-num">06</span>
+              <span class="cvwp-mobile-title">Proveedores</span>
+            </a>
+          </li>
+
+          <li class="cvwp-mobile-li">
+            <a href="/sostenibilidad" class="cvwp-mobile-link" data-mobile-link>
+              <span class="cvwp-mobile-num">07</span>
+              <span class="cvwp-mobile-title">Sostenibilidad</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <div class="cvwp-mobile-menu-bottom">
+        <a href="/contacto" class="cvwp-btn cvwp-btn--primary cvwp-btn--block" data-mobile-link>
+          <span>Contáctenos</span>
+          <svg class="cvwp-btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </dialog>
+
+</div>
+
+<style>
+  /* ============================================================================
+     Convel WP Menu — estilos namespaced (.cvwp-*)
+     Tokens locales bajo .cvwp-root para no contaminar :root del theme de WP.
+     ============================================================================ */
+
+  /* ----- Fuentes (cargadas una sola vez por la primera instancia) ----- */
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&display=swap');
+
+  .cvwp-root {
+    /* paleta cruda */
+    --cvwp-red:           #E54530;
+    --cvwp-red-700:       #B8331F;
+    --cvwp-warm-white:    #F4F2EE;
+    --cvwp-white:         #FFFFFF;
+    --cvwp-ink-900:       #0B0B0B;
+    --cvwp-ink-600:       #4A4A4A;
+    --cvwp-ink-500:       #6B6B6B;
+    --cvwp-ink-400:       #8E8E8E;
+    --cvwp-stone-100:     #EDE9E5;
+    --cvwp-stone-200:     #DDD6D1;
+    --cvwp-stone-300:     #CCC2BB;
+    --cvwp-stone-600:     #8C7F76;
+    --cvwp-stone-700:     #6E635B;
+
+    /* semánticos */
+    --cvwp-bg:            var(--cvwp-warm-white);
+    --cvwp-bg-soft:       var(--cvwp-stone-100);
+    --cvwp-surface:       var(--cvwp-warm-white);
+    --cvwp-fg:            var(--cvwp-ink-900);
+    --cvwp-fg-muted:      var(--cvwp-ink-600);
+    --cvwp-fg-faint:      var(--cvwp-ink-400);
+    --cvwp-fg-on-inverse: var(--cvwp-white);
+    --cvwp-border-soft:   var(--cvwp-stone-200);
+
+    /* tipografía */
+    --cvwp-font-display:  "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --cvwp-font-body:     "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --cvwp-font-mono:     "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    /* spacing / motion */
+    --cvwp-ease-standard: cubic-bezier(0.32, 0.08, 0.24, 1);
+    --cvwp-dur-fast:      120ms;
+    --cvwp-dur-base:      220ms;
+
+    --cvwp-ls-wide:       0.04em;
+    --cvwp-ls-eyebrow:    0.16em;
+    --cvwp-ls-snug:       -0.02em;
+
+    --cvwp-container-max: 1280px;
+    --cvwp-container-pad: clamp(20px, 4vw, 64px);
+
+    --cvwp-shadow-3:      0 12px 32px -12px rgba(11,11,11,0.18);
+
+    font-family: var(--cvwp-font-body);
+    color: var(--cvwp-fg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ----- Reset MUY acotado al menú (no global) ----- */
+  .cvwp-root, .cvwp-root *,
+  .cvwp-root *::before, .cvwp-root *::after,
+  .cvwp-mobile-menu, .cvwp-mobile-menu *,
+  .cvwp-mobile-menu *::before, .cvwp-mobile-menu *::after {
+    box-sizing: border-box;
+  }
+  .cvwp-root a { color: inherit; text-decoration: none; }
+  .cvwp-root button {
+    font-family: inherit; background: none; border: 0;
+    padding: 0; color: inherit; cursor: pointer;
+  }
+  .cvwp-root img, .cvwp-root svg { display: block; max-width: 100%; }
+  .cvwp-root ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .cvwp-mobile-menu ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .cvwp-mobile-menu a { color: inherit; text-decoration: none; }
+  .cvwp-mobile-menu button {
+    font-family: inherit; background: none; border: 0;
+    padding: 0; color: inherit; cursor: pointer;
+  }
+  .cvwp-mobile-menu img, .cvwp-mobile-menu svg { display: block; max-width: 100%; }
+
+  /* Focus ring acotado a elementos del menú (no aplica al resto del theme) */
+  .cvwp-root :focus-visible,
+  .cvwp-mobile-menu :focus-visible {
+    outline: 2px solid var(--cvwp-red);
+    outline-offset: 2px;
+  }
+
+  /* ============================================================================
+     Header
+     ============================================================================ */
+  .cvwp-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    background:#fff; /* warm-white-off */
+    color: var(--cvwp-fg);
+    transition:
+      background-color var(--cvwp-dur-base) var(--cvwp-ease-standard),
+      color var(--cvwp-dur-base) var(--cvwp-ease-standard);
+  }
+
+  .cvwp-container {
+    max-width: var(--cvwp-container-max);
+    margin-inline: auto;
+    padding: 16px var(--cvwp-container-pad);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    .cvwp-container { padding-top: 20px; padding-bottom: 20px; }
+  }
+  @media (min-width: 1024px) {
+    .cvwp-container { gap: 48px; }
+  }
+
+  .cvwp-header-hairline {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1px;
+    background: var(--cvwp-border-soft);
+    opacity: 1;
+    transition: opacity var(--cvwp-dur-base) var(--cvwp-ease-standard);
+  }
+
+  /* ----- Wordmark ----- */
+  .cvwp-wordmark {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: opacity var(--cvwp-dur-fast) var(--cvwp-ease-standard);
+  }
+  .cvwp-wordmark:hover { opacity: 0.7; }
+  .cvwp-wordmark img { height: 42px; width: auto; }
+  .cvwp-wordmark-light { display: none; }
+
+  /* ----- Desktop nav ----- */
+  .cvwp-nav {
+    display: none;
+    align-items: center;
+    gap: 24px;
+  }
+  @media (min-width: 1024px) {
+    .cvwp-nav { display: flex; }
+  }
+  @media (min-width: 1280px) {
+    .cvwp-nav { gap: 32px; }
+  }
+
+  .cvwp-nav-item { position: relative; }
+
+  .cvwp-nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 8px 0;
+    color: inherit;
+    transition: color var(--cvwp-dur-fast) var(--cvwp-ease-standard);
+  }
+  .cvwp-nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition:
+      transform var(--cvwp-dur-base) var(--cvwp-ease-standard),
+      background-color var(--cvwp-dur-fast);
+  }
+  .cvwp-nav-link:hover::after,
+  .cvwp-nav-item[data-open='true'] .cvwp-nav-link::after {
+    transform: scaleX(1);
+    background: var(--cvwp-red);
+  }
+  .cvwp-nav-link:hover,
+  .cvwp-nav-item[data-open='true'] .cvwp-nav-link {
+    color: var(--cvwp-red);
+  }
+  .cvwp-nav-link.is-active { color: var(--cvwp-fg); font-weight: 500; }
+  .cvwp-nav-link.is-active::after {
+    transform: scaleX(1);
+    background: currentColor;
+  }
+
+  .cvwp-nav-chevron {
+    opacity: 0.4;
+    transition: transform var(--cvwp-dur-base) var(--cvwp-ease-standard);
+  }
+  .cvwp-nav-item[data-open='true'] .cvwp-nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* ----- Megamenu ----- */
+  .cvwp-megamenu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    min-width: 560px;
+    max-width: 720px;
+    background: var(--cvwp-surface);
+    border: 1px solid var(--cvwp-border-soft);
+    box-shadow: var(--cvwp-shadow-3);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition:
+      opacity var(--cvwp-dur-base) var(--cvwp-ease-standard),
+      transform var(--cvwp-dur-base) var(--cvwp-ease-standard);
+    z-index: 10;
+  }
+  .cvwp-megamenu[data-open='true'] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .cvwp-megamenu-inner { padding: 28px 32px; }
+  .cvwp-megamenu-grid {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 1.6fr;
+    gap: 40px;
+  }
+  .cvwp-megamenu-context {
+    padding-right: 24px;
+    border-right: 1px solid var(--cvwp-border-soft);
+    display: flex;
+    flex-direction: column;
+  }
+  .cvwp-megamenu-eyebrow {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--cvwp-stone-700);
+    letter-spacing: var(--cvwp-ls-eyebrow);
+  }
+  .cvwp-megamenu-desc {
+    margin: 14px 0 0 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--cvwp-fg-muted);
+    max-width: 28ch;
+  }
+  .cvwp-megamenu-overview {
+    margin-top: auto;
+    padding-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cvwp-fg);
+    transition: color var(--cvwp-dur-fast) var(--cvwp-ease-standard);
+  }
+  .cvwp-megamenu-overview:hover { color: var(--cvwp-red); }
+  .cvwp-megamenu-overview-arrow {
+    transition: transform var(--cvwp-dur-base) var(--cvwp-ease-standard);
+  }
+  .cvwp-megamenu-overview:hover .cvwp-megamenu-overview-arrow {
+    transform: translateX(3px);
+  }
+  .cvwp-megamenu-list {
+    display: grid;
+    gap: 2px;
+  }
+  .cvwp-megamenu-link {
+    display: grid;
+    grid-template-columns: 28px 1fr 16px;
+    align-items: baseline;
+    gap: 14px;
+    padding: 12px 8px;
+    color: var(--cvwp-fg);
+    transition:
+      background-color var(--cvwp-dur-fast) var(--cvwp-ease-standard),
+      color var(--cvwp-dur-fast) var(--cvwp-ease-standard);
+  }
+  .cvwp-megamenu-link:hover { background: var(--cvwp-bg-soft); }
+  .cvwp-megamenu-num {
+    font-family: var(--cvwp-font-mono);
+    font-size: 11px;
+    color: var(--cvwp-stone-700);
+    letter-spacing: var(--cvwp-ls-wide);
+  }
+  .cvwp-megamenu-title {
+    font-family: var(--cvwp-font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .cvwp-megamenu-arrow {
+    color: var(--cvwp-fg-faint);
+    transition:
+      color var(--cvwp-dur-base) var(--cvwp-ease-standard),
+      transform var(--cvwp-dur-base) var(--cvwp-ease-standard);
+  }
+  .cvwp-megamenu-link:hover .cvwp-megamenu-arrow {
+    color: var(--cvwp-red);
+    transform: translate(2px, -2px);
+  }
+
+  /* ----- Actions (right) ----- */
+  .cvwp-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* ----- Buttons ----- */
+  .cvwp-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: var(--cvwp-font-body);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    font-size: 13px;
+    padding: 11px 20px;
+    transition:
+      background-color var(--cvwp-dur-base) var(--cvwp-ease-standard),
+      color var(--cvwp-dur-base) var(--cvwp-ease-standard),
+      border-color var(--cvwp-dur-base) var(--cvwp-ease-standard),
+      transform var(--cvwp-dur-base) var(--cvwp-ease-standard);
+  }
+  .cvwp-btn:active { transform: scale(0.98); }
+  .cvwp-btn--outline {
+    border: 1px solid var(--cvwp-ink-900);
+    color: var(--cvwp-ink-900);
+    background: transparent;
+  }
+  .cvwp-btn--outline:hover {
+    background: var(--cvwp-ink-900);
+    color: var(--cvwp-white);
+  }
+  .cvwp-btn--primary {
+    background: var(--cvwp-red);
+    color: var(--cvwp-white);
+  }
+  .cvwp-btn--primary:hover { background: var(--cvwp-red-700); }
+  .cvwp-btn--block { width: 100%; }
+  .cvwp-btn-arrow {
+    transition: transform var(--cvwp-dur-base) var(--cvwp-ease-standard);
+  }
+  .cvwp-btn:hover .cvwp-btn-arrow { transform: translateX(4px); }
+
+  .cvwp-cta-desktop { display: none; }
+  @media (min-width: 1024px) {
+    .cvwp-cta-desktop { display: inline-flex; }
+  }
+
+  /* ----- Mobile trigger ----- */
+  .cvwp-mobile-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-right: -8px;
+  }
+  @media (min-width: 1024px) {
+    .cvwp-mobile-trigger { display: none; }
+  }
+  .cvwp-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 22px;
+  }
+  .cvwp-burger span {
+    display: block;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform var(--cvwp-dur-base) var(--cvwp-ease-standard);
+  }
+
+  /* ============================================================================
+     Mobile menu — native <dialog>
+     ============================================================================ */
+  .cvwp-mobile-menu {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    background: var(--cvwp-warm-white);
+    color: var(--cvwp-ink-900);
+    overscroll-behavior: contain;
+    touch-action: manipulation;
+
+    /* fallback tokens — el <dialog> queda fuera de .cvwp-root, así que repetimos
+       las variables que necesita */
+    --cvwp-red:           #E54530;
+    --cvwp-warm-white:    #F4F2EE;
+    --cvwp-white:         #FFFFFF;
+    --cvwp-ink-900:       #0B0B0B;
+    --cvwp-ink-600:       #4A4A4A;
+    --cvwp-stone-700:     #6E635B;
+    --cvwp-stone-200:     #DDD6D1;
+    --cvwp-border-soft:   var(--cvwp-stone-200);
+    --cvwp-fg-muted:      var(--cvwp-ink-600);
+    --cvwp-font-display:  "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --cvwp-font-body:     "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --cvwp-font-mono:     "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --cvwp-ease-standard: cubic-bezier(0.32, 0.08, 0.24, 1);
+    --cvwp-dur-fast:      120ms;
+    --cvwp-dur-base:      220ms;
+    --cvwp-ls-wide:       0.04em;
+    --cvwp-ls-snug:       -0.02em;
+
+    font-family: var(--cvwp-font-body);
+  }
+  .cvwp-mobile-menu::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .cvwp-mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .cvwp-mobile-menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px clamp(20px, 4vw, 64px);
+    border-bottom: 1px solid var(--cvwp-border-soft);
+  }
+  .cvwp-mobile-logo { display: inline-flex; align-items: center; }
+  .cvwp-mobile-logo img { height: 28px; width: auto; }
+  .cvwp-mobile-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; height: 44px;
+    margin-right: -8px;
+  }
+  .cvwp-mobile-menu-nav {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 32px clamp(20px, 4vw, 64px);
+  }
+  .cvwp-mobile-menu-bottom {
+    padding: 24px clamp(20px, 4vw, 64px);
+    border-top: 1px solid var(--cvwp-border-soft);
+  }
+
+  .cvwp-mobile-list { display: flex; flex-direction: column; }
+  .cvwp-mobile-li {
+    border-bottom: 1px solid var(--cvwp-border-soft);
+  }
+  .cvwp-mobile-li:last-child { border-bottom: 0; }
+  .cvwp-mobile-link {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 20px 0;
+    transition: color var(--cvwp-dur-fast) var(--cvwp-ease-standard);
+  }
+  .cvwp-mobile-link:hover .cvwp-mobile-title { color: var(--cvwp-red); }
+  .cvwp-mobile-num {
+    font-family: var(--cvwp-font-mono);
+    font-size: 12px;
+    color: var(--cvwp-stone-700);
+    flex-shrink: 0;
+    padding-top: 4px;
+    letter-spacing: var(--cvwp-ls-wide);
+  }
+  .cvwp-mobile-title {
+    font-family: var(--cvwp-font-display);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 6vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: var(--cvwp-ls-snug);
+    transition: color var(--cvwp-dur-fast) var(--cvwp-ease-standard);
+  }
+  .cvwp-mobile-sublist {
+    padding: 0 0 16px 40px;
+    margin: -8px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cvwp-mobile-sublink {
+    display: block;
+    padding: 4px 0;
+    font-size: 14px;
+    color: var(--cvwp-fg-muted);
+    transition: color var(--cvwp-dur-fast) var(--cvwp-ease-standard);
+  }
+  .cvwp-mobile-sublink:hover { color: var(--cvwp-red); }
+
+  /* ----- Reduced motion ----- */
+  @media (prefers-reduced-motion: reduce) {
+    .cvwp-header,
+    .cvwp-nav-link,
+    .cvwp-nav-link::after,
+    .cvwp-nav-chevron,
+    .cvwp-megamenu,
+    .cvwp-megamenu-arrow,
+    .cvwp-megamenu-overview-arrow,
+    .cvwp-megamenu-link,
+    .cvwp-wordmark,
+    .cvwp-mobile-link,
+    .cvwp-mobile-title,
+    .cvwp-mobile-sublink,
+    .cvwp-btn,
+    .cvwp-btn-arrow {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  var HOVER_OPEN_DELAY = 60;
+  var HOVER_CLOSE_DELAY = 200;
+
+  function initHeader() {
+    var header = document.querySelector('.cvwp-header');
+    if (!header || header.dataset.cvwpInit === '1') return;
+    header.dataset.cvwpInit = '1';
+
+    // ---- Marca link activo según la ruta actual ----
+    try {
+      var currentPath = window.location.pathname || '/';
+      var links = header.querySelectorAll('.cvwp-nav-link');
+      links.forEach(function (a) {
+        var href = a.getAttribute('href') || '';
+        if (!href) return;
+        var isActive = href === '/'
+          ? currentPath === '/'
+          : currentPath.indexOf(href) === 0;
+        if (isActive) {
+          a.classList.add('is-active');
+          a.setAttribute('aria-current', 'page');
+        }
+      });
+    } catch (e) { /* noop */ }
+
+    // ---- Scroll state ----
+    var onScroll = function () {
+      header.dataset.scrolled = window.scrollY > 8 ? 'true' : 'false';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ---- Megamenu (desktop) ----
+    var items = header.querySelectorAll('.cvwp-nav-item[data-has-menu="true"]');
+    var activeItem = null;
+    var closeTimer;
+    var openTimer;
+
+    var closeItem = function (item) {
+      var menu = item.querySelector('.cvwp-megamenu');
+      if (!menu) return;
+      item.dataset.open = 'false';
+      menu.dataset.open = 'false';
+      menu.setAttribute('hidden', '');
+      if (activeItem === item) activeItem = null;
+    };
+
+    var openItem = function (item) {
+      if (activeItem && activeItem !== item) closeItem(activeItem);
+      var menu = item.querySelector('.cvwp-megamenu');
+      if (!menu) return;
+      menu.removeAttribute('hidden');
+      requestAnimationFrame(function () {
+        item.dataset.open = 'true';
+        menu.dataset.open = 'true';
+      });
+      activeItem = item;
+    };
+
+    items.forEach(function (item) {
+      var trigger = item.querySelector('.cvwp-nav-link');
+      if (!trigger) return;
+
+      item.addEventListener('mouseenter', function () {
+        window.clearTimeout(closeTimer);
+        openTimer = window.setTimeout(function () { openItem(item); }, HOVER_OPEN_DELAY);
+      });
+      item.addEventListener('mouseleave', function () {
+        window.clearTimeout(openTimer);
+        closeTimer = window.setTimeout(function () { closeItem(item); }, HOVER_CLOSE_DELAY);
+      });
+
+      item.addEventListener('focusin', function () {
+        window.clearTimeout(closeTimer);
+        openItem(item);
+      });
+      item.addEventListener('focusout', function (e) {
+        var next = e.relatedTarget;
+        if (next && item.contains(next)) return;
+        closeTimer = window.setTimeout(function () { closeItem(item); }, HOVER_CLOSE_DELAY);
+      });
+
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          openItem(item);
+          requestAnimationFrame(function () {
+            var first = item.querySelector('.cvwp-megamenu-link, .cvwp-megamenu-overview');
+            if (first) first.focus();
+          });
+        }
+        if (e.key === 'Escape' && item.dataset.open === 'true') {
+          closeItem(item);
+        }
+      });
+
+      var menu = item.querySelector('.cvwp-megamenu');
+      if (menu) {
+        menu.addEventListener('keydown', function (e) {
+          var focusables = Array.prototype.slice.call(menu.querySelectorAll('a, button'));
+          if (!focusables.length) return;
+          var idx = focusables.indexOf(document.activeElement);
+
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            closeItem(item);
+            trigger.focus();
+          }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            var nextIdx = Math.min(idx + 1, focusables.length - 1);
+            if (focusables[nextIdx]) focusables[nextIdx].focus();
+          }
+          if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (idx <= 0) trigger.focus();
+            else if (focusables[idx - 1]) focusables[idx - 1].focus();
+          }
+          if (e.key === 'Home') {
+            e.preventDefault();
+            if (focusables[0]) focusables[0].focus();
+          }
+          if (e.key === 'End') {
+            e.preventDefault();
+            var last = focusables[focusables.length - 1];
+            if (last) last.focus();
+          }
+        });
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!activeItem) return;
+      if (!activeItem.contains(e.target)) closeItem(activeItem);
+    });
+
+    // ---- Mobile menu (native <dialog>) ----
+    var dialog = document.getElementById('cvwp-mobile-menu');
+    var opener = header.querySelector('[data-open-menu]');
+    var closer = dialog ? dialog.querySelector('[data-close-menu]') : null;
+
+    var savedScrollY = 0;
+    var lockScroll = function () {
+      savedScrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + savedScrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    };
+    var unlockScroll = function () {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, savedScrollY);
+    };
+
+    var openMobile = function () {
+      if (!dialog || !opener) return;
+      lockScroll();
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute('open', '');
+      }
+      opener.setAttribute('aria-expanded', 'true');
+    };
+    var closeMobile = function () {
+      if (!dialog || !opener) return;
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+      } else {
+        dialog.removeAttribute('open');
+      }
+      opener.setAttribute('aria-expanded', 'false');
+      unlockScroll();
+      opener.focus();
+    };
+
+    if (opener) opener.addEventListener('click', openMobile);
+    if (closer) closer.addEventListener('click', closeMobile);
+
+    if (dialog) {
+      var mobileLinks = dialog.querySelectorAll('[data-mobile-link]');
+      mobileLinks.forEach(function (a) {
+        a.addEventListener('click', function () {
+          if (dialog.open) {
+            if (typeof dialog.close === 'function') dialog.close();
+            else dialog.removeAttribute('open');
+            if (opener) opener.setAttribute('aria-expanded', 'false');
+            unlockScroll();
+          }
+        });
+      });
+
+      dialog.addEventListener('close', function () {
+        if (opener) opener.setAttribute('aria-expanded', 'false');
+        unlockScroll();
+      });
+
+      dialog.addEventListener('click', function (e) {
+        if (e.target === dialog) closeMobile();
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeader);
+  } else {
+    initHeader();
+  }
+})();
+</script>
