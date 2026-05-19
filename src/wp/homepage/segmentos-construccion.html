@@ -1,0 +1,487 @@
+<!DOCTYPE html><html lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Segmentos de Construcción - Structura</title>
+<!-- Font Setup -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration matching the Design System -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            headline: ['DM Sans', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+            label: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            surface: '#f5f5f5',
+            'surface-card': '#ffffff',
+            'surface-dim': '#dcd9d9',
+            'surface-container-lowest': '#ffffff',
+            'surface-container-low': '#f6f3f2',
+            primary: '#4a3728',
+            'on-primary': '#ffffff',
+            'primary-container': '#ffdcc5',
+            'on-primary-container': '#2b170b',
+            secondary: '#735a4b',
+            'on-secondary': '#ffffff',
+            'secondary-container': '#ffdcc5',
+            'on-secondary-container': '#2a180e',
+            error: '#ba1a1a',
+            'on-error': '#ffffff',
+            'error-container': '#ffdad6',
+            'on-error-container': '#410002',
+            background: '#fcf9f8',
+            'on-background': '#1f1a18',
+            'on-surface': '#1f1a18',
+            'on-surface-variant': '#50433d',
+            outline: '#83746c',
+            'outline-variant': '#d5c3b9',
+            'inverse-surface': '#352f2d',
+            'inverse-on-surface': '#faeee9',
+            'inverse-primary': '#ffb690',
+            'cta-bg': '#6b6056',
+          },
+          borderRadius: {
+            'none': '0px',
+            'sm': '4px',
+            DEFAULT: '4px',
+            'md': '4px',
+            'lg': '4px',
+            'xl': '4px',
+            '2xl': '4px',
+            '3xl': '4px',
+            'full': '9999px',
+          },
+          boxShadow: {
+            'none': '0 0 #0000',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    /* =========================================================================
+       Segmentos — refinamiento institucional + motion arquitectónico
+       --------------------------------------------------------------------------
+       Variables de motion locales para mantener un único lenguaje temporal.
+       ======================================================================= */
+    .seg-section {
+      --seg-ease: cubic-bezier(0.32, 0.08, 0.24, 1);
+      --seg-dur-fast: 220ms;
+      --seg-dur-base: 380ms;
+      --seg-dur-slow: 520ms;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-feature-settings: "ss01", "ss02";
+    }
+
+    /* Eyebrow institucional */
+    .seg-eyebrow {
+      letter-spacing: 0.18em;
+    }
+
+    /* Card */
+    .seg-card {
+      position: relative;
+      isolation: isolate;
+      transition: background-color var(--seg-dur-base) var(--seg-ease);
+    }
+    .seg-card:hover {
+      background-color: #fcf9f8;
+    }
+
+    /* Indicador vertical hairline arquitectónico */
+    .seg-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 18%;
+      bottom: 18%;
+      width: 1px;
+      background-color: #4a3728;
+      transform: scaleY(0);
+      transform-origin: top center;
+      transition: transform var(--seg-dur-slow) var(--seg-ease);
+    }
+    .seg-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    /* Icon container */
+    .seg-icon {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #4a3728;
+      color: #ffffff;
+      border-radius: 4px;
+      transition: transform var(--seg-dur-base) var(--seg-ease);
+    }
+    .seg-icon svg {
+      width: 22px;
+      height: 22px;
+      overflow: visible;
+    }
+    .seg-card:hover .seg-icon {
+      transform: translateY(-2px);
+    }
+
+    /* --------------------------------------------------------------------------
+       Detalle interno de cada ícono (animación individual, lenguaje compartido)
+       --------------------------------------------------------------------------
+       · Todos usan el mismo easing y duraciones.
+       · Cada ícono tiene UN solo elemento que se desplaza, rota o cambia opacidad.
+       · Movimientos sub-2px o sub-6deg.
+       · vector-effect: non-scaling-stroke para mantener el grosor del stroke
+         constante incluso al escalar.
+       ----------------------------------------------------------------------- */
+    .seg-d {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition:
+        transform var(--seg-dur-slow) var(--seg-ease),
+        opacity var(--seg-dur-slow) var(--seg-ease);
+    }
+    .seg-d path,
+    .seg-d rect {
+      vector-effect: non-scaling-stroke;
+    }
+
+    /* Vivienda — la puerta crece sutilmente desde la base (entrada) */
+    .seg-d-vivienda {
+      transform-origin: center bottom;
+    }
+    .seg-card:hover .seg-d-vivienda {
+      transform: scaleY(1.08) translateY(-0.5px);
+    }
+
+    /* Alojamiento — la almohada se "afloja" un pixel hacia arriba */
+    .seg-d-alojamiento {
+      transform-origin: center bottom;
+    }
+    .seg-card:hover .seg-d-alojamiento {
+      transform: translateY(-1px);
+    }
+
+    /* Salud — la cruz interior rota 5deg dentro del marco */
+    .seg-d-salud {
+      transform-origin: center;
+    }
+    .seg-card:hover .seg-d-salud {
+      transform: rotate(5deg);
+    }
+
+    /* Industria — la chimenea se eleva 1.5px */
+    .seg-d-industria {
+      transform-origin: center bottom;
+    }
+    .seg-card:hover .seg-d-industria {
+      transform: translateY(-1.5px);
+    }
+
+    /* Corporativo — fila superior de ventanas se ilumina (opacity 0.4 → 1) */
+    .seg-d-corporativo {
+      opacity: 0.4;
+    }
+    .seg-card:hover .seg-d-corporativo {
+      opacity: 1;
+    }
+
+    /* Educación — la parte superior del birrete se inclina 3deg */
+    .seg-d-educacion {
+      transform-origin: center bottom;
+    }
+    .seg-card:hover .seg-d-educacion {
+      transform: rotate(-3deg);
+    }
+
+    /* Comercio — el toldo se eleva 1.5px */
+    .seg-d-comercio {
+      transform-origin: center bottom;
+    }
+    .seg-card:hover .seg-d-comercio {
+      transform: translateY(-1.5px);
+    }
+
+    /* --------------------------------------------------------------------------
+       Title + arrow
+       ----------------------------------------------------------------------- */
+    .seg-title-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .seg-title {
+      transition: color var(--seg-dur-fast) var(--seg-ease);
+      letter-spacing: -0.02em;
+    }
+    .seg-card:hover .seg-title {
+      color: #4a3728;
+    }
+    .seg-arrow {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition:
+        opacity var(--seg-dur-base) var(--seg-ease),
+        transform var(--seg-dur-base) var(--seg-ease);
+      color: #735a4b;
+    }
+    .seg-card:hover .seg-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Description rhythm */
+    .seg-desc {
+      max-width: 28ch;
+      letter-spacing: -0.005em;
+    }
+
+    /* CTA refinements */
+    .seg-cta {
+      background-color: #6b6056;
+    }
+    .seg-cta-btn {
+      transition:
+        background-color var(--seg-dur-base) var(--seg-ease),
+        transform var(--seg-dur-base) var(--seg-ease);
+    }
+    .seg-cta-btn:hover {
+      transform: translateY(-1px);
+    }
+    .seg-cta-btn svg {
+      transition: transform var(--seg-dur-base) var(--seg-ease);
+    }
+    .seg-cta-btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Section header rule */
+    .seg-section-rule {
+      width: 40px;
+      height: 1px;
+      background-color: #d5c3b9;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .seg-card,
+      .seg-card::before,
+      .seg-icon,
+      .seg-d,
+      .seg-title,
+      .seg-arrow,
+      .seg-cta-btn,
+      .seg-cta-btn svg {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-surface font-sans text-on-background antialiased flex flex-col min-h-screen">
+<!-- BEGIN: TopNavBar -->
+<header class="bg-surface-container-lowest border-b border-outline-variant w-full top-0 sticky z-50">
+
+</header>
+<!-- END: TopNavBar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-grow w-full">
+<!-- Segments Section -->
+<section class="seg-section py-20 px-6 max-w-7xl mx-auto">
+<!-- Section Header -->
+<div class="mb-14">
+<span class="seg-eyebrow text-on-surface-variant text-xs font-medium uppercase block mb-4">Lo que hacemos</span>
+<h2 class="text-4xl font-medium tracking-tight text-on-surface mb-5">Segmentos de construcción</h2>
+<div class="seg-section-rule"></div>
+</div>
+
+<!-- Segments Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-surface-card border border-outline-variant">
+
+<!-- Item 1: Vivienda -->
+<div class="seg-card p-10 border-b md:border-r border-outline-variant">
+<div class="seg-icon mb-7">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M4 10.5 L12 4 L20 10.5"></path>
+<path d="M5.5 9.5 V20 H18.5 V9.5"></path>
+<g class="seg-d seg-d-vivienda">
+<path d="M10 20 V14 H14 V20"></path>
+</g>
+</svg>
+</div>
+<div class="seg-title-row mb-2.5">
+<h3 class="seg-title text-xl font-medium text-on-surface">Vivienda</h3>
+<svg class="seg-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
+</div>
+<p class="seg-desc text-on-surface-variant text-sm leading-relaxed">Hoteles y apatamentos turísticos</p>
+</div>
+
+<!-- Item 2: Alojamiento -->
+<div class="seg-card p-10 border-b lg:border-r border-outline-variant">
+<div class="seg-icon mb-7">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M3 19 V8"></path>
+<path d="M21 19 V13"></path>
+<path d="M3 19 H21"></path>
+<path d="M3 15 H21"></path>
+<g class="seg-d seg-d-alojamiento">
+<path d="M7 15 V11 H12 V15"></path>
+</g>
+</svg>
+</div>
+<div class="seg-title-row mb-2.5">
+<h3 class="seg-title text-xl font-medium text-on-surface">Alojamiento</h3>
+<svg class="seg-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
+</div>
+<p class="seg-desc text-on-surface-variant text-sm leading-relaxed">Hoteles y apartamentos turísticos.</p>
+</div>
+
+<!-- Item 3: Salud -->
+<div class="seg-card p-10 border-b border-outline-variant">
+<div class="seg-icon mb-7">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect x="3.5" y="3.5" width="17" height="17" rx="1"></rect>
+<g class="seg-d seg-d-salud">
+<path d="M12 8 V16"></path>
+<path d="M8 12 H16"></path>
+</g>
+</svg>
+</div>
+<div class="seg-title-row mb-2.5">
+<h3 class="seg-title text-xl font-medium text-on-surface">Salud</h3>
+<svg class="seg-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
+</div>
+<p class="seg-desc text-on-surface-variant text-sm leading-relaxed">Clínicas, hospitales e IPS.</p>
+</div>
+
+<!-- Item 4: Industria -->
+<div class="seg-card p-10 border-b md:border-r border-outline-variant">
+<div class="seg-icon mb-7">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M3 20 V11 L9 14 V11 L15 14 V11 L21 14 V20 Z"></path>
+<path d="M3 20 H21"></path>
+<g class="seg-d seg-d-industria">
+<path d="M6 11 V7 H8 V11"></path>
+</g>
+</svg>
+</div>
+<div class="seg-title-row mb-2.5">
+<h3 class="seg-title text-xl font-medium text-on-surface">Industria</h3>
+<svg class="seg-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
+</div>
+<p class="seg-desc text-on-surface-variant text-sm leading-relaxed">Plantas, bodegas y logística industrial.</p>
+</div>
+
+<!-- Item 5: Corporativo -->
+<div class="seg-card p-10 border-b lg:border-r border-outline-variant">
+<div class="seg-icon mb-7">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect x="5" y="3" width="14" height="18"></rect>
+<g class="seg-d seg-d-corporativo">
+<path d="M9 7 H10"></path>
+<path d="M14 7 H15"></path>
+</g>
+<path d="M9 11 H10"></path>
+<path d="M14 11 H15"></path>
+<path d="M9 15 H10"></path>
+<path d="M14 15 H15"></path>
+<path d="M10.5 21 V17.5 H13.5 V21"></path>
+</svg>
+</div>
+<div class="seg-title-row mb-2.5">
+<h3 class="seg-title text-xl font-medium text-on-surface">Corporativo</h3>
+<svg class="seg-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
+</div>
+<p class="seg-desc text-on-surface-variant text-sm leading-relaxed">Oficinas y sedes empresariales.</p>
+</div>
+
+<!-- Item 6: Educación -->
+<div class="seg-card p-10 border-b border-outline-variant">
+<div class="seg-icon mb-7">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g class="seg-d seg-d-educacion">
+<path d="M2 9 L12 4 L22 9 L12 14 Z"></path>
+</g>
+<path d="M6 11 V16 C6 17.4 8.7 18.5 12 18.5 C15.3 18.5 18 17.4 18 16 V11"></path>
+<path d="M22 9 V13.5"></path>
+</svg>
+</div>
+<div class="seg-title-row mb-2.5">
+<h3 class="seg-title text-xl font-medium text-on-surface">Educación</h3>
+<svg class="seg-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
+</div>
+<p class="seg-desc text-on-surface-variant text-sm leading-relaxed">Colegios, universidades e instituciones.</p>
+</div>
+
+<!-- Item 7: Comercio -->
+<div class="seg-card p-10 md:border-r border-outline-variant">
+<div class="seg-icon mb-7">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g class="seg-d seg-d-comercio">
+<path d="M4 8 L20 8 L18.5 4 L5.5 4 Z"></path>
+</g>
+<path d="M5 8 V20 H19 V8"></path>
+<path d="M10 20 V13 H14 V20"></path>
+<path d="M8 8 V10.5"></path>
+<path d="M12 8 V10.5"></path>
+<path d="M16 8 V10.5"></path>
+</svg>
+</div>
+<div class="seg-title-row mb-2.5">
+<h3 class="seg-title text-xl font-medium text-on-surface">Comercio</h3>
+<svg class="seg-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
+</div>
+<p class="seg-desc text-on-surface-variant text-sm leading-relaxed">Centros comercialies y retail</p>
+</div>
+
+<!-- Call to Action Block -->
+<div class="seg-cta p-10 lg:col-span-2 text-white flex flex-col justify-center items-start">
+<span class="seg-eyebrow text-xs font-medium uppercase block mb-4 opacity-80">Hablemos</span>
+<h3 class="text-2xl font-medium tracking-tight mb-7 max-w-md">¿Tu proyecto en qué segmento encaja?</h3>
+<a class="seg-cta-btn inline-flex items-center gap-3 bg-black text-white px-7 py-3 rounded text-sm font-medium tracking-wide hover:bg-gray-900" href="#">
+<span>Ver todos los proyectos</span>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path d="M5 12h14"></path>
+<path d="m12 5 7 7-7 7"></path>
+</svg>
+</a>
+</div>
+
+</div>
+</section>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: Footer -->
+
+<!-- END: Footer -->
+
+
+</body></html>
